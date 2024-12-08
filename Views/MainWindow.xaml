@@ -40,44 +40,47 @@
     </Window.Resources>
 
     <Border Style="{StaticResource WindowMainPanelStyle}">
-        <DockPanel HorizontalAlignment="Stretch"
-                   VerticalAlignment="Stretch">
-            <!--App top bar-->
-            <ContentControl DockPanel.Dock="Top"
-                            MouseDown="TopBarMouseDown"
-                            MouseDoubleClick="RestoreApp">
-                <StackPanel Orientation="Horizontal"
-                            HorizontalAlignment="Stretch"
-                            FlowDirection="RightToLeft"
-                            Background="{DynamicResource MaterialDesign.Brush.Primary.Light}">
-                    <Button HorizontalAlignment="Right"
-                            VerticalAlignment="Center"
-                            Click="CloseApp">
-                        <materialDesign:PackIcon Kind="Close"/>
-                    </Button>
+        <materialDesign:DialogHost Identifier="RootDialog">
+            <DockPanel HorizontalAlignment="Stretch"
+                       VerticalAlignment="Stretch">
+                <!--App top bar-->
+                <ContentControl DockPanel.Dock="Top"
+                                MouseDown="TopBarMouseDown"
+                                MouseDoubleClick="RestoreApp">
+                    <StackPanel Orientation="Horizontal"
+                                HorizontalAlignment="Stretch"
+                                FlowDirection="RightToLeft"
+                                Background="{DynamicResource MaterialDesign.Brush.Primary.Light}">
+                        <Button HorizontalAlignment="Right"
+                                VerticalAlignment="Center"
+                                Click="CloseApp">
+                            <materialDesign:PackIcon Kind="Close" />
+                        </Button>
 
-                    <Button HorizontalAlignment="Right"
-                            VerticalAlignment="Center"
-                            Click="RestoreApp">
-                        <materialDesign:PackIcon x:Name="RestoreIcon" Kind="WindowMaximize"/>
-                    </Button>
+                        <Button HorizontalAlignment="Right"
+                                VerticalAlignment="Center"
+                                Click="RestoreApp">
+                            <materialDesign:PackIcon x:Name="RestoreIcon"
+                                                     Kind="WindowMaximize" />
+                        </Button>
 
-                    <Button HorizontalAlignment="Right"
-                            VerticalAlignment="Center"
-                            Click="MinimiseApp">
-                        <materialDesign:PackIcon Kind="WindowMinimize"/>
-                    </Button>
-                </StackPanel>
-            </ContentControl>
+                        <Button HorizontalAlignment="Right"
+                                VerticalAlignment="Center"
+                                Click="MinimiseApp">
+                            <materialDesign:PackIcon Kind="WindowMinimize" />
+                        </Button>
+                    </StackPanel>
+                </ContentControl>
 
-            <!--App navigation rail-->
-            <local:NavigationRail x:Name="NavigationRail"
-                                  DataContext="{Binding NavigationRailViewModel}"
-                                  SelectedValue="{Binding DataContext.CurrentDestination, RelativeSource={RelativeSource AncestorType={x:Type Window}}, Mode=OneWayToSource}"
-                                  VerticalAlignment="Stretch"/>
+                <!--App navigation rail-->
+                <local:NavigationRail x:Name="NavigationRail"
+                                      DataContext="{Binding NavigationRailViewModel}"
+                                      SelectedValue="{Binding DataContext.CurrentDestination, RelativeSource={RelativeSource AncestorType={x:Type Window}}, Mode=OneWayToSource}"
+                                      VerticalAlignment="Stretch" />
 
-            <!--App activity area-->
-            <ContentControl Content="{Binding CurrentDestination}" />
-        </DockPanel>
+                <!--App activity area-->
+                <ContentControl Content="{Binding CurrentDestination}" />
+            </DockPanel>
+        </materialDesign:DialogHost>
     </Border>
 </Window>

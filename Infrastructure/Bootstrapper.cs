@@ -54,9 +54,12 @@ public class Bootstrapper
         //        });
         //});
 
-        // Generics
+        // Repositories
         services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
-        services.AddScoped(typeof(IGenericFactory), typeof(GenericFactory));
+        services.AddScoped<CardRepository>();
+
+        // Factories
+        services.AddScoped<IGenericFactory, GenericFactory>(serviceProvider => new GenericFactory(serviceProvider));
 
         // View Models
         services.AddSingleton<IMainWindowViewModel, MainWindowViewModel>();

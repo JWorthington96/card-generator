@@ -8,7 +8,7 @@ using DrinkingBuddy.Interfaces.ViewModels.Activities;
 
 namespace DrinkingBuddy.ViewModels.Activities;
 
-public class DeckCollectionViewModel(IRepository<Deck> deckRepository, IGenericFactory genericFactory) : ViewModelBase, IDeckCollectionViewModel
+public class DeckCollectionViewModel(IRepository<Deck> deckRepository, IRepository<Card> cardRepository, IGenericFactory genericFactory) : ViewModelBase, IDeckCollectionViewModel
 {
     public IDeckViewModel? CurrentDeck { get; private set; } = null;
     public ObservableCollection<Deck> Decks => new(deckRepository.GetAllAsync().Result!);
@@ -34,6 +34,10 @@ public class DeckCollectionViewModel(IRepository<Deck> deckRepository, IGenericF
 
     private async Task SaveDeck(Deck deck)
     {
+        foreach (var card in deck.Cards)
+        {
+            await cardRepository.AddOrUpdateAsync(card);
+        }
         await deckRepository.AddOrUpdateAsync(deck);
         CurrentDeck = null;
         OnPropertyChanged(nameof(Decks));

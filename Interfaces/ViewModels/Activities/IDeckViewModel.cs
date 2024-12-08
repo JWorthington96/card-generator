@@ -1,4 +1,6 @@
-﻿using DrinkingBuddy.Input;
+﻿using System.Collections.ObjectModel;
+using DrinkingBuddy.Entities;
+using DrinkingBuddy.Input;
 
 namespace DrinkingBuddy.Interfaces.ViewModels.Activities;
 
@@ -12,6 +14,9 @@ public interface IDeckViewModel
     string FilePath { get; set; }
     byte[]? ImageThumb { get; }
 
+    ObservableCollection<Card> Cards { get; }
+
+    IAsyncRelayCommand AddCardCommand { get; }
     IAsyncRelayCommand? SaveCommand { get; set; }
     IRelayCommand? CancelCommand { get; set; }
 }

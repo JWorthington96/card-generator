@@ -1,17 +1,23 @@
-﻿using System.Drawing;
+﻿using System.Collections.ObjectModel;
+using System.Drawing;
 using System.IO;
+using System.Threading.Tasks;
+using DrinkingBuddy.Domain;
 using DrinkingBuddy.Entities;
 using DrinkingBuddy.Helpers;
 using DrinkingBuddy.Input;
 using DrinkingBuddy.Interfaces.ViewModels.Activities;
+using DrinkingBuddy.ViewModels.Dialogs;
+using DrinkingBuddy.Views;
 using Microsoft.Win32;
+using DialogHost = MaterialDesignThemes.Wpf.DialogHost;
 
 namespace DrinkingBuddy.ViewModels.Activities;
 
 /// <summary>
 ///     The deck view model.
 /// </summary>
-public sealed class DeckViewModel(Deck entity) : ViewModelBase, IDeckViewModel
+public sealed class DeckViewModel(Deck entity, CardRepository cardRepository) : ViewModelBase, IDeckViewModel
 {
     public string Name
     {
@@ -54,11 +60,15 @@ public sealed class DeckViewModel(Deck entity) : ViewModelBase, IDeckViewModel
 
     public byte[]? ImageThumb => entity.Image?.ThumbBytes;
 
+    public IAsyncRelayCommand AddCardCommand => new AsyncRelayCommand(AddCard);
+
     public IAsyncRelayCommand? SaveCommand { get; set; }
 
     public IRelayCommand? CancelCommand { get; set; }
 
     public IRelayCommand SelectFileCommand => new RelayCommand(SelectFile);
+
+    public ObservableCollection<Card> Cards { get; } = new(cardRepository.GetCardsForDeck(entity.Id)!.Result);
 
     private void SelectFile()
     {
@@ -85,5 +95,32 @@ public sealed class DeckViewModel(Deck entity) : ViewModelBase, IDeckViewModel
 
         OnPropertyChanged(nameof(FilePath));
         OnPropertyChanged(nameof(ImageThumb));
+    }
+
+    private async Task AddCard()
+    {
+        var viewModel = new AddCardViewModel()
+        {
+            AddCommand = new RelayCommand(() => DialogHost.Close("RootDialog", true)),
+            CancelCommand = new RelayCommand(() => DialogHost.Close("RootDialog", false))
+        };
+        var content = new DialogControl()
+        {
+            DataContext = viewModel
+        };
+
+        var result = await DialogHost.Show(content, "RootDialog");
+        if (result is true)
+        {
+            Cards.Add(new Card()
+            {
+                Description = viewModel.FlavourText,
+                Image = viewModel.ImageData,
+                DeckId = entity.Id,
+                Deck = entity
+            });
+
+            OnPropertyChanged(nameof(Cards));
+        }
     }
 }

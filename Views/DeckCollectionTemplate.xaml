@@ -37,7 +37,7 @@
                                 <Image Width="196"
                                        Height="140"
                                        Source="{Binding Image.ThumbBytes, Converter={StaticResource BytesConverter}}"
-                                       Stretch="UniformToFill" />
+                                       Stretch="Uniform" />
 
                                 <StackPanel Grid.Row="1"
                                             Margin="8,24,8,0">

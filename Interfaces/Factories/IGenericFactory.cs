@@ -6,4 +6,5 @@ public interface IGenericFactory
 {
     T Create<T>() where T : new();
     T Create<T>(params object[] args);
+    T Create<T, T1>(params object[] args);
 }

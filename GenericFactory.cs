@@ -1,11 +1,13 @@
 ﻿// Courtesy of https://medium.com/@gilbert6137/enhancing-c-factory-pattern-with-generics-and-reflection-fe9e9aa49f29
 
 using System;
+using System.Collections.Generic;
 using DrinkingBuddy.Interfaces.Factories;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace DrinkingBuddy;
 
-public class GenericFactory : IGenericFactory
+public class GenericFactory(IServiceProvider serviceProvider) : IGenericFactory
 {
     public T Create<T>() where T : new()
     {
@@ -21,7 +23,8 @@ public class GenericFactory : IGenericFactory
         T instance;
         try
         {
-            instance = (T)Activator.CreateInstance(type, args);
+            instance = (T)ActivatorUtilities.CreateInstance(serviceProvider, type, args);
+            //instance = (T)Activator.CreateInstance(type, args);
         }
         catch (Exception ex)
         {
@@ -56,6 +59,31 @@ public class GenericFactory : IGenericFactory
         //{
         //    throw new ArgumentException($"Member '{memberName}' not found in type '{type.FullName}'");
         //}
+
+        return instance;
+    }
+
+    public T Create<T, T1>(params object[] args)
+    {
+        // Get type information
+        Type type = typeof(T);
+        Type type1 = typeof(T1);
+
+        // Try to create an instance with given arguments
+        T instance;
+        try
+        {
+            var instance1 = Create<T1>();
+            var newArgs = new List<object>(args)
+            {
+                instance1
+            };
+            instance = (T)Activator.CreateInstance(type, newArgs.ToArray());
+        }
+        catch (Exception ex)
+        {
+            throw new InvalidOperationException($"Could not create an instance of type '{type.FullName}'", ex);
+        }
 
         return instance;
     }
