@@ -20,6 +20,7 @@
         WindowStartupLocation="CenterScreen"
         AllowsTransparency="True"
         Title="DrinkingBuddy"
+        Loaded="WindowLoaded"
         Height="720" Width="1280">
     <Window.Resources>
         <ResourceDictionary>
@@ -29,6 +30,11 @@
                 <ResourceDictionary Source="./CardCollectionTemplate.xaml" />
                 <ResourceDictionary Source="./DeckCollectionTemplate.xaml" />
             </ResourceDictionary.MergedDictionaries>
+
+            <CollectionViewSource x:Key="deckViewSource" />
+            <CollectionViewSource x:Key="cardViewSource"
+                                  Source="{Binding Cards, Source={StaticResource deckViewSource}}" />
+
             <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignIconForegroundButton}"/>
         </ResourceDictionary>
     </Window.Resources>

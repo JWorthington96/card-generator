@@ -1,8 +1,13 @@
-﻿namespace DrinkingBuddy.Entities;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
-public readonly struct Deck(int id, string name, string description)
+namespace DrinkingBuddy.Entities;
+
+public class Deck
 {
-    public int Id { get; } = id;
-    public string Name { get; } = name;
-    public string Description { get; } = description;
+    public int Id { get; set; }
+    public string Name { get; set; }
+    public string Description { get; set; }
+
+    public virtual ICollection<Card> Cards { get; private set; } = new ObservableCollection<Card>();
 }

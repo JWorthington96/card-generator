@@ -5,7 +5,7 @@ namespace DrinkingBuddy.Interfaces.ViewModels.Activities;
 /// <summary>
 ///     Interface for the card collection view model.
 /// </summary>
-public interface ICardCollectionViewModel
+public interface IDeckViewModel
 {
     /// <summary>
     ///     An example command.

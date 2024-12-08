@@ -1,6 +1,10 @@
-﻿using System;
+﻿using DrinkingBuddy.Domain;
+using DrinkingBuddy.Interfaces.ViewModels;
+using Microsoft.EntityFrameworkCore;
+using System;
 using System.Runtime.InteropServices;
 using System.Windows;
+using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Interop;
 
@@ -11,10 +15,33 @@ namespace DrinkingBuddy.Views;
 /// </summary>
 public partial class MainWindow : Window
 {
+    private readonly DeckContext _deckContext;
+
+    private CollectionViewSource deckViewSource;
+
     /// <summary>
     ///     Constructor for MainWindow.
     /// </summary>
-    public MainWindow() => InitializeComponent();
+    public MainWindow(IMainWindowViewModel mainWindowViewModel, DeckContext deckContext)
+    {
+        InitializeComponent();
+        DataContext = mainWindowViewModel;
+        _deckContext = deckContext;
+        deckViewSource = (CollectionViewSource)FindResource(nameof(deckViewSource));
+    }
+
+    private void WindowLoaded(object sender, RoutedEventArgs e)
+    {
+        // this is for demo purposes only, to make it easier
+        // to get up and running
+        _deckContext.Database.EnsureCreated();
+
+        // load the entities into EF Core
+        _deckContext.Decks.Load();
+
+        // bind to the source
+        deckViewSource.Source = _deckContext.Decks.Local.ToObservableCollection();
+    }
 
     private void TopBarMouseDown(object sender, MouseButtonEventArgs e)
     {

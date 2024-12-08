@@ -76,7 +76,8 @@
             <Button Style="{DynamicResource MaterialDesignFloatingActionButton}"
                     Margin="16"
                     HorizontalAlignment="Right"
-                    VerticalAlignment="Bottom">
+                    VerticalAlignment="Bottom"
+                    Command="{Binding AddCommand}">
                 <materialDesign:PackIcon Kind="Add"
                                          Height="24"
                                          Width="24"/>

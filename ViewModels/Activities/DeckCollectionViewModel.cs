@@ -1,15 +1,21 @@
-﻿using DrinkingBuddy.Entities;
+﻿using System.Collections.ObjectModel;
+using DrinkingBuddy.Domain;
+using DrinkingBuddy.Entities;
+using DrinkingBuddy.Input;
+using DrinkingBuddy.Interfaces.Input;
 using DrinkingBuddy.Interfaces.ViewModels.Activities;
-using System.Collections.ObjectModel;
 
 namespace DrinkingBuddy.ViewModels.Activities;
 
-public class DeckCollectionViewModel : ViewModelBase, IDeckCollectionViewModel
+public class DeckCollectionViewModel(IRepository<Deck> deckRepository) : ViewModelBase, IDeckCollectionViewModel
 {
-    public ObservableCollection<Deck> Decks { get; } =
-        [
-        new Deck(1, "Deck1", "This is a test deck."),
-        new Deck(2, "Deck2", "This is another test deck."),
-        new Deck(3, "Deck3", "This is yet another test deck.")
-        ];
+    public ObservableCollection<Deck> Decks => new(deckRepository.GetAllAsync().Result!);
+
+    public IRelayCommand AddCommand => new RelayCommand(CreateDeckAndRefresh);
+
+    private async void CreateDeckAndRefresh()
+    {
+        await deckRepository.AddAsync(new Deck() { Name = "TestDeck", Description = "TestDescription" });
+        OnPropertyChanged(nameof(Decks));
+    }
 }

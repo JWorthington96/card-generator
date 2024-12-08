@@ -1,8 +1,8 @@
-﻿using DrinkingBuddy.Interfaces.Services;
-using DrinkingBuddy.ViewModels;
+﻿using System.Windows;
+using DrinkingBuddy.Domain;
 using DrinkingBuddy.Views;
 using Microsoft.Extensions.DependencyInjection;
-using System.Windows;
+using Microsoft.Extensions.Hosting;
 
 namespace DrinkingBuddy.Infrastructure;
 
@@ -11,17 +11,26 @@ namespace DrinkingBuddy.Infrastructure;
 /// </summary>
 public partial class App : Application
 {
+    private IHost host;
     protected override void OnStartup(StartupEventArgs e)
     {
         base.OnStartup(e);
 
         var bootstrapper = new Bootstrapper();
         bootstrapper.Start();
-
-        MainWindow = new MainWindow
-        {
-            DataContext = new MainWindowViewModel(bootstrapper.Host.Services.GetService<IExampleService>()!)
-        };
+        host = bootstrapper.Host;
+        MainWindow = bootstrapper.Host.Services.GetRequiredService<MainWindow>();
         MainWindow.Show();
+    }
+
+    protected override void OnExit(ExitEventArgs e)
+    {
+        if (host is not null)
+        {
+            var context = host.Services.GetRequiredService<DeckContext>();
+            context.Database.EnsureDeleted();
+        }
+
+        base.OnExit(e);
     }
 }

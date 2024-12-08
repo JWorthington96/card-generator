@@ -1,12 +1,13 @@
-﻿using DrinkingBuddy.Entities;
+﻿using System.Collections.ObjectModel;
+using DrinkingBuddy.Domain;
+using DrinkingBuddy.Entities;
 using DrinkingBuddy.Interfaces.Entities;
-using DrinkingBuddy.Interfaces.Services;
+using DrinkingBuddy.Interfaces.Factories;
 using DrinkingBuddy.Interfaces.ViewModels;
-using System.Collections.ObjectModel;
 
 namespace DrinkingBuddy.ViewModels;
 
-public class NavigationRailViewModel(IExampleService exampleService) : ViewModelBase, INavigationRailViewModel
+public class NavigationRailViewModel(IGenericFactory genericFactory, IRepository<Deck> deckRepo) : ViewModelBase, INavigationRailViewModel
 {
     private IDestination<ViewModelBase>? selectedDestination;
     /// <inheritdoc/>
@@ -22,6 +23,6 @@ public class NavigationRailViewModel(IExampleService exampleService) : ViewModel
 
     public ObservableCollection<IDestination<ViewModelBase>> Destinations { get; } =
         [
-            new DeckCollectionDestination()
+            new DeckCollectionDestination(genericFactory, deckRepo)
         ];
 }

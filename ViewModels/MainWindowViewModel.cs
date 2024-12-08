@@ -1,14 +1,13 @@
-﻿using DrinkingBuddy.Interfaces.Services;
-using DrinkingBuddy.Interfaces.ViewModels;
+﻿using DrinkingBuddy.Interfaces.ViewModels;
 
 namespace DrinkingBuddy.ViewModels;
 
 /// <summary>
 ///     The main window view model.
 /// </summary>
-public sealed class MainWindowViewModel(IExampleService exampleService) : ViewModelBase, IMainWindowViewModel
+public sealed class MainWindowViewModel(INavigationRailViewModel navigationRailViewModel) : ViewModelBase, IMainWindowViewModel
 {
-    public NavigationRailViewModel NavigationRailViewModel => new(exampleService);
+    public INavigationRailViewModel NavigationRailViewModel => navigationRailViewModel;
 
     ViewModelBase? currentDestination;
     /// <inheritdoc/>
