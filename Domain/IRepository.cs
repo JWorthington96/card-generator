@@ -2,15 +2,17 @@
 
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using DrinkingBuddy.Entities;
 
 namespace DrinkingBuddy.Domain;
 
-public interface IRepository<T> where T : class
+public interface IRepository<T> where T : DbEntry
 {
     Task AddAsync(T entity);
     Task<T> GetByIdAsync(int id);
-    Task<List<T?>> GetAllAsync(bool tracked = true);
+    Task<List<T>> GetAllAsync(bool tracked = true);
     Task UpdateAsync(T entity);
     Task DeleteByIdAsync(int id);
+    Task AddOrUpdateAsync(T entity);
     Task SaveAsync();
 }

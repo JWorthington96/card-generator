@@ -61,8 +61,8 @@ public class Bootstrapper
         // View Models
         services.AddSingleton<IMainWindowViewModel, MainWindowViewModel>();
         services.AddSingleton<INavigationRailViewModel, NavigationRailViewModel>();
-        services.AddSingleton<IDeckViewModel, DeckViewModel>();
-        services.AddSingleton<IDeckCollectionViewModel, DeckCollectionViewModel>();
+        services.AddScoped<IDeckViewModel, DeckViewModel>();
+        services.AddScoped<IDeckCollectionViewModel, DeckCollectionViewModel>();
 
         // Views
         services.AddSingleton<MainWindow>();

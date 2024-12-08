@@ -73,7 +73,7 @@
             <!--App navigation rail-->
             <local:NavigationRail x:Name="NavigationRail"
                                   DataContext="{Binding NavigationRailViewModel}"
-                                  SelectedValue="{Binding DataContext.CurrentDestination, RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
+                                  SelectedValue="{Binding DataContext.CurrentDestination, RelativeSource={RelativeSource AncestorType={x:Type Window}}, Mode=OneWayToSource}"
                                   VerticalAlignment="Stretch"/>
 
             <!--App activity area-->

@@ -1,4 +1,4 @@
-﻿// From https://github.com/CommunityToolkit/dotnet/blob/main/src/CommunityToolkit.Mvvm/Input/Interfaces/IRelayCommand%7BT%7D.cs
+﻿// Courtesy of https://github.com/CommunityToolkit/dotnet
 
 // Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
@@ -6,7 +6,7 @@
 
 using System.Windows.Input;
 
-namespace DrinkingBuddy.Interfaces.Input;
+namespace DrinkingBuddy.Input;
 
 /// <summary>
 /// A generic interface representing a more specific version of <see cref="IRelayCommand"/>.

@@ -1,19 +1,17 @@
-﻿using DrinkingBuddy.Interfaces.Input;
+﻿using DrinkingBuddy.Input;
 
 namespace DrinkingBuddy.Interfaces.ViewModels.Activities;
 
 /// <summary>
-///     Interface for the card collection view model.
+///     Interface for the deck view model.
 /// </summary>
 public interface IDeckViewModel
 {
-    /// <summary>
-    ///     An example command.
-    /// </summary>
-    IRelayCommand ExampleCommand { get; }
+    string Name { get; set; }
+    string Description { get; set; }
+    string FilePath { get; set; }
+    byte[]? ImageThumb { get; }
 
-    /// <summary>
-    ///     An example property.
-    /// </summary>
-    string ExampleProperty { get; }
+    IAsyncRelayCommand? SaveCommand { get; set; }
+    IRelayCommand? CancelCommand { get; set; }
 }

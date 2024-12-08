@@ -1,29 +1,89 @@
-﻿using System;
+﻿using System.Drawing;
+using System.IO;
+using DrinkingBuddy.Entities;
+using DrinkingBuddy.Helpers;
 using DrinkingBuddy.Input;
-using DrinkingBuddy.Interfaces.Input;
-using DrinkingBuddy.Interfaces.Services;
 using DrinkingBuddy.Interfaces.ViewModels.Activities;
+using Microsoft.Win32;
 
 namespace DrinkingBuddy.ViewModels.Activities;
 
 /// <summary>
-///     The card collection view model.
+///     The deck view model.
 /// </summary>
-public sealed class DeckViewModel : ViewModelBase, IDeckViewModel
+public sealed class DeckViewModel(Deck entity) : ViewModelBase, IDeckViewModel
 {
-    /// <summary>
-    ///     Constructor for the default activity view model.
-    /// </summary>
-    /// <param name="exampleService"></param>
-    public DeckViewModel(IExampleService exampleService)
+    public string Name
     {
-        ArgumentNullException.ThrowIfNull(exampleService);
-        ExampleCommand = new RelayCommand(exampleService.ExampleMethod);
+        get => entity.Name;
+        set
+        {
+            if (entity.Name != value)
+            {
+                entity.Name = value;
+                OnPropertyChanged();
+            }
+        }
     }
 
-    /// <inheritdoc/>
-    public IRelayCommand ExampleCommand { get; init; }
+    public string Description
+    {
+        get => entity.Description;
+        set
+        {
+            if (entity.Description != value)
+            {
+                entity.Description = value;
+                OnPropertyChanged();
+            }
+        }
+    }
 
-    /// <inheritdoc/>
-    public string ExampleProperty => "Example";
+    public string FilePath
+    {
+        get => entity.Image?.FilePath ?? string.Empty;
+        set
+        {
+            if (entity.Image?.FilePath != value)
+            {
+                UpdateImageData(value);
+                OnPropertyChanged();
+            }
+        }
+    }
+
+    public byte[]? ImageThumb => entity.Image?.ThumbBytes;
+
+    public IAsyncRelayCommand? SaveCommand { get; set; }
+
+    public IRelayCommand? CancelCommand { get; set; }
+
+    public IRelayCommand SelectFileCommand => new RelayCommand(SelectFile);
+
+    private void SelectFile()
+    {
+        var dialog = new OpenFileDialog() { Multiselect = false };
+
+        if (dialog.ShowDialog() is true)
+        {
+            UpdateImageData(dialog.FileName);
+        }
+    }
+
+    private void UpdateImageData(string filePath)
+    {
+        if (!File.Exists(filePath)) return;
+        using var image = Image.FromFile(filePath);
+        using var thumb = image.GetThumbnailImage(128, 128, null, 0);
+
+        entity.Image = new ImageData
+        {
+            FilePath = filePath,
+            Bytes = ImageHelpers.GetImageBytes(image),
+            ThumbBytes = ImageHelpers.GetImageBytes(thumb)
+        };
+
+        OnPropertyChanged(nameof(FilePath));
+        OnPropertyChanged(nameof(ImageThumb));
+    }
 }

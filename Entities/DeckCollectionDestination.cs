@@ -6,11 +6,11 @@ using MaterialDesignThemes.Wpf;
 
 namespace DrinkingBuddy.Entities;
 
-public class DeckCollectionDestination(IGenericFactory genericFactory, IRepository<Deck> deckRepo) : IDestination<DeckCollectionViewModel>
+public class DeckCollectionDestination(IRepository<Deck> deckRepo, IGenericFactory genericFactory) : IDestination<DeckCollectionViewModel>
 {
     public DestinationInfo Info => new("Collection", PackIconKind.CardMultiple, PackIconKind.CardMultipleOutline);
 
-    public DeckCollectionViewModel ViewModel => genericFactory.Create<DeckCollectionViewModel>(deckRepo);
+    public DeckCollectionViewModel ViewModel => genericFactory.Create<DeckCollectionViewModel>(deckRepo, genericFactory);
 
     public override string ToString() => Info.ToString();
 }

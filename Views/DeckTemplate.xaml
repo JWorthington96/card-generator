@@ -1,0 +1,95 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:vm="clr-namespace:DrinkingBuddy.ViewModels.Activities"
+                    xmlns:converters="clr-namespace:DrinkingBuddy.Converters"
+                    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes">
+    
+    <converters:BytesToBitmapSourceConverter x:Key="BytesConverter" />
+
+    <DataTemplate DataType="{x:Type vm:DeckViewModel}">
+        <Grid Margin="16"
+              VerticalAlignment="Stretch">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.Row="0"
+                       Style="{DynamicResource MaterialDesignHeadline5TextBlock}"
+                       Margin="0 0 0 16"
+                       Text="Details"/>
+
+            <Grid Grid.Row="1"
+                  Margin="8"
+                  VerticalAlignment="Top">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0">
+                    <TextBox Style="{StaticResource MaterialDesignTextBox}"
+                             materialDesign:HintAssist.Hint="Name"
+                             Text="{Binding Name}" />
+                    <TextBox Margin="0 16 0 0"
+                             Style="{StaticResource MaterialDesignTextBox}"
+                             materialDesign:HintAssist.Hint="Description"
+                             Text="{Binding Description}" />
+                    <Grid Margin="0 16 0 0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        
+                        <TextBox Grid.Column="0"
+                                 Style="{StaticResource MaterialDesignTextBox}"
+                                 IsReadOnly="True"
+                                 materialDesign:HintAssist.Hint="Image"
+                                 Text="{Binding FilePath}" />
+                        <Button Grid.Column="1"
+                                Style="{DynamicResource MaterialDesignFlatButton}"
+                                HorizontalAlignment="Right"
+                                Content="Select from device"
+                                Command="{Binding SelectFileCommand}" />
+                    </Grid>
+                        
+                </StackPanel>
+
+                <Image Grid.Column="1"
+                       Margin="16 0 0 0"
+                       HorizontalAlignment="Right"
+                       Source="{Binding ImageThumb, Converter={StaticResource BytesConverter}}"
+                       Stretch="UniformToFill"
+                       Width="128"
+                       Height="128"/>
+            </Grid>
+
+            <Separator Grid.Row="2"
+                       Margin="0 8"
+                       Style="{DynamicResource MaterialDesignSeparator}"/>
+
+            <TextBlock Grid.Row="3"
+                       Style="{DynamicResource MaterialDesignHeadline5TextBlock}"
+                       Margin="0 0 0 16"
+                       Text="Cards" />
+
+            <ContentControl Grid.Row="4"
+                            Margin="8"/>
+
+            <StackPanel Grid.Row="5"
+                        Orientation="Horizontal"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Bottom">
+                <Button Style="{DynamicResource MaterialDesignRaisedButton}"
+                        Content="Save"
+                        Command="{Binding SaveCommand}"/>
+                <Button Style="{DynamicResource MaterialDesignFlatButton}" 
+                        Content="Cancel"
+                        Command="{Binding CancelCommand}"/>
+            </StackPanel>
+        </Grid>
+    </DataTemplate>
+</ResourceDictionary>

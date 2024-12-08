@@ -23,6 +23,6 @@ public class NavigationRailViewModel(IGenericFactory genericFactory, IRepository
 
     public ObservableCollection<IDestination<ViewModelBase>> Destinations { get; } =
         [
-            new DeckCollectionDestination(genericFactory, deckRepo)
+            new DeckCollectionDestination(deckRepo, genericFactory)
         ];
 }
