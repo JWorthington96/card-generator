@@ -1,31 +1,23 @@
-﻿using WpfAppBase.Interfaces.Services;
-using WpfAppBase.Interfaces.ViewModels;
-using WpfAppBase.ViewModels.Activities;
+﻿using DrinkingBuddy.Interfaces.Services;
+using DrinkingBuddy.Interfaces.ViewModels;
 
-namespace WpfAppBase.ViewModels;
+namespace DrinkingBuddy.ViewModels;
 
 /// <summary>
 ///     The main window view model.
 /// </summary>
-public sealed class MainWindowViewModel : ViewModelBase, IMainWindowViewModel
+public sealed class MainWindowViewModel(IExampleService exampleService) : ViewModelBase, IMainWindowViewModel
 {
-    /// <summary>
-    ///     Constructor for the main window view model.
-    /// </summary>
-    /// <param name="exampleService"> The example service.</param>
-    public MainWindowViewModel(IExampleService exampleService)
-    {
-        ActivityViewModel = new DefaultActivityViewModel(exampleService);
-    }
+    public NavigationRailViewModel NavigationRailViewModel => new(exampleService);
 
-    ViewModelBase? activityViewModel;
+    ViewModelBase? currentDestination;
     /// <inheritdoc/>
-    public ViewModelBase? ActivityViewModel
+    public ViewModelBase? CurrentDestination
     {
-        get => activityViewModel;
+        get => currentDestination;
         set
         {
-            activityViewModel = value;
+            currentDestination = value;
             OnPropertyChanged();
         }
     }

@@ -6,7 +6,7 @@
 
 using System.Windows.Input;
 
-namespace WpfAppBase.Interfaces.Input;
+namespace DrinkingBuddy.Interfaces.Input;
 
 /// <summary>
 /// An interface expanding <see cref="ICommand"/> with the ability to raise

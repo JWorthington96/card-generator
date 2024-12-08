@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics;
-using WpfAppBase.Interfaces.Services;
+using DrinkingBuddy.Interfaces.Services;
 
-namespace WpfAppBase.Services;
+namespace DrinkingBuddy.Services;
 
 /// <summary>
 ///     An example class for DI.

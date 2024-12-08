@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 
-namespace WpfAppBase.ViewModels;
+namespace DrinkingBuddy.ViewModels;
 
 public class ViewModelBase : INotifyPropertyChanged
 {

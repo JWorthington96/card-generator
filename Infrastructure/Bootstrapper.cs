@@ -1,9 +1,9 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using DrinkingBuddy.Interfaces.Services;
+using DrinkingBuddy.Services;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using WpfAppBase.Interfaces.Services;
-using WpfAppBase.Services;
 
-namespace WpfAppBase.Infrastructure;
+namespace DrinkingBuddy.Infrastructure;
 
 /// <summary>
 ///     Responsible for creating the application builder, and registering all of the dependencies used in dependency injection and configuration.

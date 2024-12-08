@@ -1,6 +1,6 @@
-﻿using WpfAppBase.ViewModels;
+﻿using DrinkingBuddy.ViewModels;
 
-namespace WpfAppBase.Interfaces.ViewModels;
+namespace DrinkingBuddy.Interfaces.ViewModels;
 
 /// <summary>
 ///     The interface for the main window view model.
@@ -8,7 +8,7 @@ namespace WpfAppBase.Interfaces.ViewModels;
 public interface IMainWindowViewModel
 {
     /// <summary>
-    ///     The activity view model being displayed.
+    ///     The current destination from the navigation rail.
     /// </summary>
-    ViewModelBase? ActivityViewModel { get; set; }
+    ViewModelBase? CurrentDestination { get; set; }
 }

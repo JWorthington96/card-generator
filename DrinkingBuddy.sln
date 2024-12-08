@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.34202.233
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfAppBase", "WpfAppBase.csproj", "{E0662E3E-A52E-4912-B096-0C96CFE55A9C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DrinkingBuddy", "DrinkingBuddy.csproj", "{E0662E3E-A52E-4912-B096-0C96CFE55A9C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

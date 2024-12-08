@@ -9,9 +9,9 @@
 
 using System;
 using System.Runtime.CompilerServices;
-using WpfAppBase.Interfaces.Input;
+using DrinkingBuddy.Interfaces.Input;
 
-namespace WpfAppBase.Input;
+namespace DrinkingBuddy.Input;
 
 /// <summary>
 /// A command whose sole purpose is to relay its functionality to other

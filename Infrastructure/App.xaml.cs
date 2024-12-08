@@ -1,10 +1,10 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using DrinkingBuddy.Interfaces.Services;
+using DrinkingBuddy.ViewModels;
+using DrinkingBuddy.Views;
+using Microsoft.Extensions.DependencyInjection;
 using System.Windows;
-using WpfAppBase.Interfaces.Services;
-using WpfAppBase.ViewModels;
-using WpfAppBase.Views;
 
-namespace WpfAppBase.Infrastructure;
+namespace DrinkingBuddy.Infrastructure;
 
 /// <summary>
 ///     Interaction logic for App.xaml

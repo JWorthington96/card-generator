@@ -4,7 +4,7 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Interop;
 
-namespace WpfAppBase.Views;
+namespace DrinkingBuddy.Views;
 
 /// <summary>
 /// Interaction logic for MainWindow.xaml

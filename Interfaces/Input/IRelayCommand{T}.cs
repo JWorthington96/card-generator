@@ -6,7 +6,7 @@
 
 using System.Windows.Input;
 
-namespace WpfAppBase.Interfaces.Input;
+namespace DrinkingBuddy.Interfaces.Input;
 
 /// <summary>
 /// A generic interface representing a more specific version of <see cref="IRelayCommand"/>.

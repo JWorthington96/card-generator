@@ -1,11 +1,11 @@
-﻿using WpfAppBase.Interfaces.Input;
+﻿using DrinkingBuddy.Interfaces.Input;
 
-namespace WpfAppBase.Interfaces.ViewModels.Activities;
+namespace DrinkingBuddy.Interfaces.ViewModels.Activities;
 
 /// <summary>
-///     An example activity view model.
+///     Interface for the card collection view model.
 /// </summary>
-public interface IDefaultActivityViewModel
+public interface ICardCollectionViewModel
 {
     /// <summary>
     ///     An example command.

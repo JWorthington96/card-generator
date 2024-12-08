@@ -1,4 +1,4 @@
-﻿namespace WpfAppBase.Interfaces.Services;
+﻿namespace DrinkingBuddy.Interfaces.Services;
 
 /// <summary>
 ///     An example service interface for DI.
