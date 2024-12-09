@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Media.Imaging;
 
-namespace DrinkingBuddy.Helpers;
+namespace CardGenerator.Helpers;
 
 public static class ImageHelpers
 {
@@ -29,11 +29,11 @@ public static class ImageHelpers
     public static BitmapSource GetImageStream(Image myImage)
     {
         var bitmap = new Bitmap(myImage);
-        IntPtr bmpPt = bitmap.GetHbitmap();
+        nint bmpPt = bitmap.GetHbitmap();
         BitmapSource bitmapSource =
          System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(
                bmpPt,
-               IntPtr.Zero,
+               nint.Zero,
                Int32Rect.Empty,
                BitmapSizeOptions.FromEmptyOptions());
 
@@ -46,5 +46,5 @@ public static class ImageHelpers
 
     [DllImport("gdi32.dll")]
     [return: MarshalAs(UnmanagedType.Bool)]
-    internal static extern bool DeleteObject(IntPtr value);
+    internal static extern bool DeleteObject(nint value);
 }

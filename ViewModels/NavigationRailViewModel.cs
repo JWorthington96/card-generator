@@ -1,11 +1,11 @@
 ﻿using System.Collections.ObjectModel;
-using DrinkingBuddy.Domain;
-using DrinkingBuddy.Entities;
-using DrinkingBuddy.Interfaces.Entities;
-using DrinkingBuddy.Interfaces.Factories;
-using DrinkingBuddy.Interfaces.ViewModels;
+using CardGenerator.Domain;
+using CardGenerator.Entities;
+using CardGenerator.Interfaces.Entities;
+using CardGenerator.Interfaces.Factories;
+using CardGenerator.Interfaces.ViewModels;
 
-namespace DrinkingBuddy.ViewModels;
+namespace CardGenerator.ViewModels;
 
 public class NavigationRailViewModel(IGenericFactory genericFactory, IRepository<Deck> deckRepo) : ViewModelBase, INavigationRailViewModel
 {
@@ -23,6 +23,7 @@ public class NavigationRailViewModel(IGenericFactory genericFactory, IRepository
 
     public ObservableCollection<IDestination<ViewModelBase>> Destinations { get; } =
         [
-            genericFactory.Create<DeckCollectionDestination>()
+            genericFactory.Create<DeckCollectionDestination>(),
+            genericFactory.Create<ExportDestination>()
         ];
 }

@@ -1,7 +1,7 @@
-﻿using DrinkingBuddy.ViewModels;
+﻿using CardGenerator.ViewModels;
 using MaterialDesignThemes.Wpf;
 
-namespace DrinkingBuddy.Interfaces.Entities;
+namespace CardGenerator.Interfaces.Entities;
 
 public interface IDestination<out T> where T : ViewModelBase
 {

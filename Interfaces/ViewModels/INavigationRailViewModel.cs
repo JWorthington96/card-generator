@@ -1,8 +1,8 @@
-﻿using DrinkingBuddy.Interfaces.Entities;
-using DrinkingBuddy.ViewModels;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
+using CardGenerator.Interfaces.Entities;
+using CardGenerator.ViewModels;
 
-namespace DrinkingBuddy.Interfaces.ViewModels;
+namespace CardGenerator.Interfaces.ViewModels;
 
 public interface INavigationRailViewModel
 {

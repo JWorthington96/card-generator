@@ -1,4 +1,4 @@
-﻿namespace DrinkingBuddy.Entities;
+﻿namespace CardGenerator.Entities;
 
 public class Card : DbEntry
 {

@@ -6,7 +6,7 @@
 
 using System;
 
-namespace DrinkingBuddy.Input;
+namespace CardGenerator.Input;
 
 /// <summary>
 /// Options to customize the behavior of <see cref="AsyncRelayCommand"/> and <see cref="AsyncRelayCommand{T}"/> instances.

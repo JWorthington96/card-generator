@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace DrinkingBuddy.Views;
+namespace CardGenerator.Views;
 
 /// <summary>
 /// Interaction logic for NavigationRail.xaml

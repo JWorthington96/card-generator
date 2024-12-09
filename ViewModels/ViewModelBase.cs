@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 
-namespace DrinkingBuddy.ViewModels;
+namespace CardGenerator.ViewModels;
 
 public class ViewModelBase : INotifyPropertyChanged
 {

@@ -1,6 +1,6 @@
-﻿using DrinkingBuddy.Interfaces.ViewModels;
+﻿using CardGenerator.Interfaces.ViewModels;
 
-namespace DrinkingBuddy.ViewModels;
+namespace CardGenerator.ViewModels;
 
 /// <summary>
 ///     The main window view model.

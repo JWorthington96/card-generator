@@ -1,6 +1,6 @@
 ﻿// Courtesy of https://medium.com/@gilbert6137/enhancing-c-factory-pattern-with-generics-and-reflection-fe9e9aa49f29
 
-namespace DrinkingBuddy.Interfaces.Factories;
+namespace CardGenerator.Interfaces.Factories;
 
 public interface IGenericFactory
 {

@@ -1,16 +1,18 @@
-﻿using DrinkingBuddy.Domain;
-using DrinkingBuddy.Interfaces.Factories;
-using DrinkingBuddy.Interfaces.Services;
-using DrinkingBuddy.Interfaces.ViewModels;
-using DrinkingBuddy.Interfaces.ViewModels.Activities;
-using DrinkingBuddy.Services;
-using DrinkingBuddy.ViewModels;
-using DrinkingBuddy.ViewModels.Activities;
-using DrinkingBuddy.Views;
+﻿using CardGenerator.Domain;
+using CardGenerator.Interfaces.Factories;
+using CardGenerator.Interfaces.Services;
+using CardGenerator.Interfaces.ViewModels;
+using CardGenerator.Interfaces.ViewModels.Cards;
+using CardGenerator.Interfaces.ViewModels.Decks;
+using CardGenerator.Services;
+using CardGenerator.ViewModels;
+using CardGenerator.ViewModels.Cards;
+using CardGenerator.ViewModels.Decks;
+using CardGenerator.Views;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace DrinkingBuddy.Infrastructure;
+namespace CardGenerator.Infrastructure;
 
 /// <summary>
 ///     Responsible for creating the application builder, and registering all of the dependencies used in dependency injection and configuration.
@@ -38,7 +40,7 @@ public class Bootstrapper
     private static void RegisterServices(IServiceCollection services)
     {
         // Services
-        services.AddScoped<IExampleService, ExampleService>();
+        services.AddScoped<IPdfExportService, PdfExportService>();
 
         // Domain
         services.AddScoped<DeckContext>();
@@ -64,8 +66,10 @@ public class Bootstrapper
         // View Models
         services.AddSingleton<IMainWindowViewModel, MainWindowViewModel>();
         services.AddSingleton<INavigationRailViewModel, NavigationRailViewModel>();
-        services.AddScoped<IDeckViewModel, DeckViewModel>();
         services.AddScoped<IDeckCollectionViewModel, DeckCollectionViewModel>();
+        services.AddTransient<IDeckViewModel, DeckViewModel>();
+        services.AddTransient<ICardViewModel, CardViewModel>();
+        services.AddTransient<IAddCardViewModel<ICardViewModel>, AddCardViewModel>();
 
         // Views
         services.AddSingleton<MainWindow>();

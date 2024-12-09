@@ -1,7 +1,7 @@
-﻿using DrinkingBuddy.Entities;
+﻿using CardGenerator.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace DrinkingBuddy.Domain
+namespace CardGenerator.Domain
 {
     public class DeckContext : DbContext
     {

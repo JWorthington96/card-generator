@@ -2,9 +2,9 @@
 
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using DrinkingBuddy.Entities;
+using CardGenerator.Entities;
 
-namespace DrinkingBuddy.Domain;
+namespace CardGenerator.Domain;
 
 public interface IRepository<T> where T : DbEntry
 {

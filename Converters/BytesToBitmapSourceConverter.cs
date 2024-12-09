@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Globalization;
 using System.Windows.Data;
-using DrinkingBuddy.Helpers;
+using CardGenerator.Helpers;
 
-namespace DrinkingBuddy.Converters
+namespace CardGenerator.Converters
 {
     public class BytesToBitmapSourceConverter : IValueConverter
     {

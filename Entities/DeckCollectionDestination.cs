@@ -1,9 +1,9 @@
-﻿using DrinkingBuddy.Interfaces.Entities;
-using DrinkingBuddy.Interfaces.Factories;
-using DrinkingBuddy.ViewModels.Activities;
+﻿using CardGenerator.Interfaces.Entities;
+using CardGenerator.Interfaces.Factories;
+using CardGenerator.ViewModels.Decks;
 using MaterialDesignThemes.Wpf;
 
-namespace DrinkingBuddy.Entities;
+namespace CardGenerator.Entities;
 
 public class DeckCollectionDestination(IGenericFactory genericFactory) : IDestination<DeckCollectionViewModel>
 {

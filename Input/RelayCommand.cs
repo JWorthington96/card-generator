@@ -9,8 +9,9 @@
 
 using System;
 using System.Runtime.CompilerServices;
+using CardGenerator.Interfaces.Input;
 
-namespace DrinkingBuddy.Input;
+namespace CardGenerator.Input;
 
 /// <summary>
 /// A command whose sole purpose is to relay its functionality to other
@@ -37,7 +38,7 @@ public sealed partial class RelayCommand : IRelayCommand
     /// Initializes a new instance of the <see cref="RelayCommand"/> class that can always execute.
     /// </summary>
     /// <param name="execute">The execution logic.</param>
-    /// <exception cref="System.ArgumentNullException">Thrown if <paramref name="execute"/> is <see langword="null"/>.</exception>
+    /// <exception cref="ArgumentNullException">Thrown if <paramref name="execute"/> is <see langword="null"/>.</exception>
     public RelayCommand(Action execute)
     {
         ArgumentNullException.ThrowIfNull(execute);
@@ -50,7 +51,7 @@ public sealed partial class RelayCommand : IRelayCommand
     /// </summary>
     /// <param name="execute">The execution logic.</param>
     /// <param name="canExecute">The execution status logic.</param>
-    /// <exception cref="System.ArgumentNullException">Thrown if <paramref name="execute"/> or <paramref name="canExecute"/> are <see langword="null"/>.</exception>
+    /// <exception cref="ArgumentNullException">Thrown if <paramref name="execute"/> or <paramref name="canExecute"/> are <see langword="null"/>.</exception>
     public RelayCommand(Action execute, Func<bool> canExecute)
     {
         ArgumentNullException.ThrowIfNull(execute);
@@ -70,12 +71,12 @@ public sealed partial class RelayCommand : IRelayCommand
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public bool CanExecute(object? parameter)
     {
-        return this.canExecute?.Invoke() != false;
+        return canExecute?.Invoke() != false;
     }
 
     /// <inheritdoc/>
     public void Execute(object? parameter)
     {
-        this.execute();
+        execute();
     }
 }

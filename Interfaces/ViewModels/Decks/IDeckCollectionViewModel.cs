@@ -1,8 +1,8 @@
 ﻿using System.Collections.ObjectModel;
-using DrinkingBuddy.Entities;
-using DrinkingBuddy.Input;
+using CardGenerator.Entities;
+using CardGenerator.Interfaces.Input;
 
-namespace DrinkingBuddy.Interfaces.ViewModels.Activities;
+namespace CardGenerator.Interfaces.ViewModels.Decks;
 
 public interface IDeckCollectionViewModel
 {

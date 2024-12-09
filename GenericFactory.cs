@@ -2,10 +2,10 @@
 
 using System;
 using System.Collections.Generic;
-using DrinkingBuddy.Interfaces.Factories;
+using CardGenerator.Interfaces.Factories;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace DrinkingBuddy;
+namespace CardGenerator;
 
 public class GenericFactory(IServiceProvider serviceProvider) : IGenericFactory
 {
@@ -23,8 +23,14 @@ public class GenericFactory(IServiceProvider serviceProvider) : IGenericFactory
         T instance;
         try
         {
-            instance = (T)ActivatorUtilities.CreateInstance(serviceProvider, type, args);
-            //instance = (T)Activator.CreateInstance(type, args);
+            if (type.IsInterface && args.Length == 0)
+            {
+                instance = serviceProvider.GetService<T>();
+            }
+            else
+            {
+                instance = (T)ActivatorUtilities.CreateInstance(serviceProvider, type, args);
+            }
         }
         catch (Exception ex)
         {

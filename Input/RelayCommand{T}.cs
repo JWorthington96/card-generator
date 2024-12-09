@@ -10,8 +10,9 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
+using CardGenerator.Interfaces.Input;
 
-namespace DrinkingBuddy.Input;
+namespace CardGenerator.Input;
 
 /// <summary>
 /// A generic command whose sole purpose is to relay its functionality to other
@@ -44,7 +45,7 @@ public sealed partial class RelayCommand<T> : IRelayCommand<T>
     /// nullable <see cref="object"/> parameter, it is recommended that if <typeparamref name="T"/> is a reference type,
     /// you should always declare it as nullable, and to always perform checks within <paramref name="execute"/>.
     /// </remarks>
-    /// <exception cref="System.ArgumentNullException">Thrown if <paramref name="execute"/> is <see langword="null"/>.</exception>
+    /// <exception cref="ArgumentNullException">Thrown if <paramref name="execute"/> is <see langword="null"/>.</exception>
     public RelayCommand(Action<T?> execute)
     {
         ArgumentNullException.ThrowIfNull(execute);
@@ -58,7 +59,7 @@ public sealed partial class RelayCommand<T> : IRelayCommand<T>
     /// <param name="execute">The execution logic.</param>
     /// <param name="canExecute">The execution status logic.</param>
     /// <remarks>See notes in <see cref="RelayCommand{T}(Action{T})"/>.</remarks>
-    /// <exception cref="System.ArgumentNullException">Thrown if <paramref name="execute"/> or <paramref name="canExecute"/> are <see langword="null"/>.</exception>
+    /// <exception cref="ArgumentNullException">Thrown if <paramref name="execute"/> or <paramref name="canExecute"/> are <see langword="null"/>.</exception>
     public RelayCommand(Action<T?> execute, Predicate<T?> canExecute)
     {
         ArgumentNullException.ThrowIfNull(execute);
@@ -78,7 +79,7 @@ public sealed partial class RelayCommand<T> : IRelayCommand<T>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public bool CanExecute(T? parameter)
     {
-        return this.canExecute?.Invoke(parameter) != false;
+        return canExecute?.Invoke(parameter) != false;
     }
 
     /// <inheritdoc/>
@@ -103,7 +104,7 @@ public sealed partial class RelayCommand<T> : IRelayCommand<T>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public void Execute(T? parameter)
     {
-        this.execute(parameter);
+        execute(parameter);
     }
 
     /// <inheritdoc/>

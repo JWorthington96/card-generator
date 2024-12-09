@@ -1,10 +1,10 @@
 ﻿using System.Windows;
-using DrinkingBuddy.Domain;
-using DrinkingBuddy.Views;
+using CardGenerator.Domain;
+using CardGenerator.Views;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace DrinkingBuddy.Infrastructure;
+namespace CardGenerator.Infrastructure;
 
 /// <summary>
 ///     Interaction logic for App.xaml

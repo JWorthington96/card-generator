@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
-namespace DrinkingBuddy.Entities;
+namespace CardGenerator.Entities;
 
 public class Deck : DbEntry
 {
@@ -10,4 +10,6 @@ public class Deck : DbEntry
 
     public virtual ImageData Image { get; set; }
     public virtual ICollection<Card> Cards { get; private set; } = new ObservableCollection<Card>();
+
+    public override string ToString() => Name;
 }

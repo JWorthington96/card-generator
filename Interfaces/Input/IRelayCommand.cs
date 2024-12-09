@@ -6,7 +6,7 @@
 
 using System.Windows.Input;
 
-namespace DrinkingBuddy.Input;
+namespace CardGenerator.Interfaces.Input;
 
 /// <summary>
 /// An interface expanding <see cref="ICommand"/> with the ability to raise

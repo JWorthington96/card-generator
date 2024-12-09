@@ -6,7 +6,7 @@
 
 using System.Windows.Input;
 
-namespace DrinkingBuddy.Input;
+namespace CardGenerator.Interfaces.Input;
 
 /// <summary>
 /// A generic interface representing a more specific version of <see cref="IRelayCommand"/>.

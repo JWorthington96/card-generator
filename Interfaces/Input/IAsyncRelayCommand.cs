@@ -7,7 +7,7 @@
 using System.ComponentModel;
 using System.Threading.Tasks;
 
-namespace DrinkingBuddy.Input;
+namespace CardGenerator.Interfaces.Input;
 
 /// <summary>
 /// An interface expanding <see cref="IRelayCommand"/> to support asynchronous operations.
