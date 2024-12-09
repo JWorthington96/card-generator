@@ -5,21 +5,15 @@ using CardGenerator.Helpers;
 using CardGenerator.Input;
 using CardGenerator.Interfaces.Input;
 using CardGenerator.Interfaces.ViewModels.Cards;
-using MaterialDesignThemes.Wpf;
+using CardGenerator.Interfaces.ViewModels.Dialogs;
 using Microsoft.Win32;
 
-namespace CardGenerator.ViewModels.Cards;
+namespace CardGenerator.ViewModels.Dialogs;
 
-public class AddCardViewModel(ICardViewModel card) : ViewModelBase, IAddCardViewModel<ICardViewModel>
+public class ModifyCardViewModel : ViewModelBase, IModifyCardViewModel
 {
-    public ICardViewModel Card { get; } = card;
-
-    public string ConfirmLabel { get; set; } = "Confirm";
-
+    public ICardViewModel Card { get; set; }
     public IRelayCommand SelectFileCommand => new RelayCommand(SelectFile);
-
-    public IRelayCommand ConfirmCommand => new RelayCommand(() => DialogHost.Close("RootDialog", Card));
-    public IRelayCommand CancelCommand => new RelayCommand(() => DialogHost.Close("RootDialog", null));
 
     private void SelectFile()
     {

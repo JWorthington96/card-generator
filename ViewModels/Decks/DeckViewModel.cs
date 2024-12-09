@@ -12,6 +12,7 @@ using CardGenerator.Interfaces.Factories;
 using CardGenerator.Interfaces.Input;
 using CardGenerator.Interfaces.ViewModels.Cards;
 using CardGenerator.Interfaces.ViewModels.Decks;
+using CardGenerator.Interfaces.ViewModels.Dialogs;
 using CardGenerator.ViewModels.Cards;
 using CardGenerator.Views;
 using DynamicData;
@@ -145,23 +146,20 @@ public sealed class DeckViewModel : ViewModelBase, IDeckViewModel, IDisposable
 
     private async Task AddOrUpdateCard(ICardViewModel card, bool add)
     {
-        var content = new DialogControl()
-        {
-            DataContext = new AddCardViewModel(card)
-            {
-                ConfirmLabel = add ? "Add" : "Save"
-            }
-        };
+        var context = genericFactory.Create<IDialogViewModel<IModifyCardViewModel>>();
+        context.Result.Card = card;
+        context.ConfirmLabel = add ? "Add" : "Save";
+        var content = new DialogControl { DataContext = context };
 
-        var result = await DialogHost.Show(content, "RootDialog");
-        if (result is ICardViewModel resultCard)
+        var result = await DialogHost.Show(content, "RootDialog") as IModifyCardViewModel;
+        if (result is not null)
         {
             if (add)
             {
-                resultCard.Id = cardsCache.Count + 1;
+                result.Card.Id = cardsCache.Count + 1;
             }
 
-            cardsCache.AddOrUpdate(resultCard.CreateCard());
+            cardsCache.AddOrUpdate(result.Card.CreateCard());
         }
     }
 

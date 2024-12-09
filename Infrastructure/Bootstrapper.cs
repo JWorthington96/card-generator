@@ -1,13 +1,16 @@
 ﻿using CardGenerator.Domain;
+using CardGenerator.Entities;
 using CardGenerator.Interfaces.Factories;
 using CardGenerator.Interfaces.Services;
 using CardGenerator.Interfaces.ViewModels;
 using CardGenerator.Interfaces.ViewModels.Cards;
 using CardGenerator.Interfaces.ViewModels.Decks;
+using CardGenerator.Interfaces.ViewModels.Dialogs;
 using CardGenerator.Services;
 using CardGenerator.ViewModels;
 using CardGenerator.ViewModels.Cards;
 using CardGenerator.ViewModels.Decks;
+using CardGenerator.ViewModels.Dialogs;
 using CardGenerator.Views;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -69,7 +72,11 @@ public class Bootstrapper
         services.AddScoped<IDeckCollectionViewModel, DeckCollectionViewModel>();
         services.AddTransient<IDeckViewModel, DeckViewModel>();
         services.AddTransient<ICardViewModel, CardViewModel>();
-        services.AddTransient<IAddCardViewModel<ICardViewModel>, AddCardViewModel>();
+
+        services.AddTransient<Font>();
+        services.AddTransient(typeof(IDialogViewModel<>), typeof(DialogViewModel<>));
+        services.AddTransient<IModifyCardViewModel, ModifyCardViewModel>();
+        services.AddTransient<IExportOptionsViewModel, ExportOptionsViewModel>();
 
         // Views
         services.AddSingleton<MainWindow>();

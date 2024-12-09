@@ -36,6 +36,11 @@
                         Content="Export"
                         Command="{Binding ExportCommand}"
                         materialDesign:ButtonAssist.CornerRadius="16"/>
+                
+                <Button Style="{DynamicResource MaterialDesignFlatButton}"
+                        Content="Options"
+                        Command="{Binding OptionsCommand}"
+                        materialDesign:ButtonAssist.CornerRadius="16" />
             </StackPanel>
 
             <materialDesign:ColorZone Grid.Row="4"

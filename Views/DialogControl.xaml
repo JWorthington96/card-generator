@@ -4,44 +4,25 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:CardGenerator.Views"
+             xmlns:dialogs="clr-namespace:CardGenerator.ViewModels.Dialogs"
              xmlns:converters="clr-namespace:CardGenerator.Converters"
-             xmlns:cards="clr-namespace:CardGenerator.ViewModels.Cards"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800"
-             d:DataContext="{d:DesignInstance cards:AddCardViewModel, IsDesignTimeCreatable=False}">
+             d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
-        <converters:BytesToBitmapSourceConverter x:Key="BytesConverter" />
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="DialogTemplates.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            
+            <converters:BytesToBitmapSourceConverter x:Key="BytesConverter" />
+        </ResourceDictionary>
     </UserControl.Resources>
 
     <StackPanel Margin="16"
                 Width="480">
-        <StackPanel VerticalAlignment="Top">
-            <TextBox Margin="0 16 0 0"
-                     Style="{StaticResource MaterialDesignTextBox}"
-                     materialDesign:HintAssist.Hint="Flavour text"
-                     Text="{Binding Card.FlavourText}" />
-            <Grid Margin="0 16 0 0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="Auto" />
-                </Grid.ColumnDefinitions>
-
-                <TextBox Grid.Column="0"
-                         Style="{StaticResource MaterialDesignTextBox}"
-                         IsReadOnly="True"
-                         materialDesign:HintAssist.Hint="Image"
-                         Text="{Binding Card.ImageData.FilePath}" />
-                <Button Grid.Column="1"
-                        Style="{DynamicResource MaterialDesignFlatButton}"
-                        HorizontalAlignment="Right"
-                        Content="Select from device"
-                        Command="{Binding SelectFileCommand}" />
-            </Grid>
-
-            <Image Margin="0 16"
-                   Source="{Binding Card.ImageData.Bytes, Converter={StaticResource BytesConverter}}" />
-        </StackPanel>
+        <ContentControl VerticalAlignment="Top"
+                        Content="{Binding Result}"/>
 
         <StackPanel Margin="0 16 0 0"
                     Orientation="Horizontal"

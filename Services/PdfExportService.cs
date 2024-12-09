@@ -21,7 +21,7 @@ public class PdfExportService : IPdfExportService
     private const double padding = 5;
 
     /// <inheritdoc/>
-    public void Export(Deck deck, string folderPath)
+    public void Export(Deck deck, string folderPath, Font font)
     {
         var pdf = new PdfDocument();
         var page = pdf.AddPage();
@@ -30,7 +30,12 @@ public class PdfExportService : IPdfExportService
 
         var millimeterToPt = page.Width.Point / page.Width.Millimeter;
 
-        var font = new XFont("Times New Roman", 12, XFontStyleEx.Bold);
+        var style = XFontStyleEx.Regular;
+        if (font.IsBold && font.IsItalic) style = XFontStyleEx.BoldItalic;
+        else if (font.IsUnderline) style = XFontStyleEx.Underline;
+        else if (font.IsStrikethrough) style = XFontStyleEx.Strikeout;
+
+        var xFont = new XFont(font.Family, font.Size, style);
 
         var marginPt = ToPoint(margin, millimeterToPt);
         var paddingPt = ToPoint(padding, millimeterToPt);
@@ -44,6 +49,8 @@ public class PdfExportService : IPdfExportService
 
         var cardWidthPt = ToPoint(cardWidth, millimeterToPt);
         var cardHeightPt = ToPoint(cardHeight, millimeterToPt);
+
+        var thirdHeight = cardHeightPt * (2d / 3);
 
         var x = marginPt;
         var y = marginPt;
@@ -86,15 +93,13 @@ public class PdfExportService : IPdfExportService
                 graphics.DrawImage(image, imageRect);
             }
 
-
-            var thirdHeight = cardHeightPt * (2d / 3);
-            var textRect = new XRect(cardRect.X + padding, cardRect.Y + thirdHeight, cardRect.Width - padding, thirdHeight);
+            var textRect = new XRect(cardRect.X + padding, cardRect.Y + thirdHeight, cardRect.Width - 2 * padding, thirdHeight);
 
             var formatter = new XTextFormatter(graphics)
             {
                 Alignment = XParagraphAlignment.Center
             };
-            formatter.DrawString(card.Description, font, XBrushes.Black, textRect);
+            formatter.DrawString(card.Description, xFont, XBrushes.Black, textRect);
 
             x += cardWidthPt + paddingPt;
         }
