@@ -112,7 +112,7 @@
 
                                             <Image Width="196"
                                                    Height="140"
-                                                   Source="{Binding ImageData.ThumbBytes, Converter={StaticResource BytesConverter}}"
+                                                   Source="{Binding Image.ThumbBytes, Converter={StaticResource BytesConverter}}"
                                                    Stretch="Uniform" />
 
                                             <StackPanel Grid.Row="1"

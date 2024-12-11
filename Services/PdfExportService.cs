@@ -11,7 +11,7 @@ using PdfSharp.Quality;
 namespace CardGenerator.Services;
 
 /// <summary>
-///     A service for exporting cards to a PDF file.
+/// A service for exporting cards to a PDF file.
 /// </summary>
 public class PdfExportService : IPdfExportService
 {
@@ -78,7 +78,7 @@ public class PdfExportService : IPdfExportService
 
             if (card.Image is not null)
             {
-                using var stream = new BufferedStream(new MemoryStream(card.Image.Bytes));
+                using var stream = new BufferedStream(new MemoryStream(card.Image?.Bytes ?? []));
                 var image = XImage.FromStream(stream);
 
                 var desiredRect = new XRect(cardRect.X + paddingPt, cardRect.Y + paddingPt, cardRect.Width - 2 * paddingPt, cardRect.Height * (2d / 3) - 2 * paddingPt);
@@ -99,7 +99,7 @@ public class PdfExportService : IPdfExportService
             {
                 Alignment = XParagraphAlignment.Center
             };
-            formatter.DrawString(card.Description, xFont, XBrushes.Black, textRect);
+            formatter.DrawString(card.FlavourText ?? string.Empty, xFont, XBrushes.Black, textRect);
 
             x += cardWidthPt + paddingPt;
         }
@@ -109,7 +109,7 @@ public class PdfExportService : IPdfExportService
         PdfFileUtility.ShowDocument(filePath);
     }
 
-    private double ToPoint(double millimeter, double convertion) => millimeter * convertion;
+    private static double ToPoint(double millimeter, double convertion) => millimeter * convertion;
 
-    private double GetScale(XSize size, XSize desiredSize) => Math.Max(desiredSize.Width / size.Width, desiredSize.Height / size.Height);
+    private static double GetScale(XSize size, XSize desiredSize) => Math.Max(desiredSize.Width / size.Width, desiredSize.Height / size.Height);
 }

@@ -6,9 +6,14 @@ using CardGenerator.Interfaces.ViewModels.Dialogs;
 
 namespace CardGenerator.ViewModels.Dialogs;
 
-public class ExportOptionsViewModel : ViewModelBase, IExportOptionsViewModel
+/// <summary>
+/// The export options view model.
+/// </summary>
+public class ExportOptionsViewModel(Font? font) : ViewModelBase, IExportOptionsViewModel
 {
-    public IEnumerable<string> AvailableFonts { get; set; } = Fonts.SystemFontFamilies.SelectMany(f => f.FamilyNames.Values);
+    /// <inheritdoc />
+    public IEnumerable<string> AvailableFonts { get; } = Fonts.SystemFontFamilies.SelectMany(f => f.FamilyNames.Values);
 
-    public Font Font { get; set; } = new Font();
+    /// <inheritdoc />
+    public Font Font { get; } = font ?? new Font();
 }

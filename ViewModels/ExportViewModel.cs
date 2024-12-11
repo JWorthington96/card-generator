@@ -20,9 +20,11 @@ public class ExportViewModel(IGenericFactory genericFactory, IRepository<Deck> d
 {
     private Font exportFont = new();
 
+    /// <inheritdoc/>
     public IDeckViewModel? CurrentDeck => SelectedDeck is null ? null : genericFactory.Create<DeckViewModel>(SelectedDeck);
 
     private Deck? selectedDeck;
+    /// <inheritdoc/>
     public Deck? SelectedDeck
     {
         get => selectedDeck;
@@ -34,10 +36,13 @@ public class ExportViewModel(IGenericFactory genericFactory, IRepository<Deck> d
         }
     }
 
+    /// <inheritdoc/>
     public ObservableCollection<Deck> Decks => new(deckRepository.GetAllAsync().Result!);
 
+    /// <inheritdoc/>
     public IRelayCommand ExportCommand => new RelayCommand(Export);
 
+    /// <inheritdoc/>
     public IAsyncRelayCommand OptionsCommand => new AsyncRelayCommand(OpenOptions);
 
     private void Export()
@@ -54,8 +59,7 @@ public class ExportViewModel(IGenericFactory genericFactory, IRepository<Deck> d
 
     private async Task OpenOptions()
     {
-        var viewModel = genericFactory.Create<IDialogViewModel<IExportOptionsViewModel>>();
-        if (exportFont is not null) viewModel.Result.Font = exportFont;
+        var viewModel = genericFactory.Create<IDialogViewModel<IExportOptionsViewModel>>(exportFont);
 
         var content = new DialogControl { DataContext = viewModel };
 

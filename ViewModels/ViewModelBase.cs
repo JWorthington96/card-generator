@@ -4,6 +4,9 @@ using System.Runtime.CompilerServices;
 
 namespace CardGenerator.ViewModels;
 
+/// <summary>
+/// The view model base. Implements the notify property changed so view models can use this instead of reimplementing it.
+/// </summary>
 public class ViewModelBase : INotifyPropertyChanged
 {
     // In ViewModelBase.cs 

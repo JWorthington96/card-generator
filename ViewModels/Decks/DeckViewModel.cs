@@ -32,7 +32,17 @@ public sealed class DeckViewModel : ViewModelBase, IDeckViewModel, IDisposable
     private readonly ReadOnlyObservableCollection<ICardViewModel> cards;
     private readonly IDisposable disposables;
 
-    public DeckViewModel(IGenericFactory genericFactory, Deck entity)
+    /// <summary>
+    /// Constructor for the deck view model.
+    /// </summary>
+    /// <param name="genericFactory">The generic factory.</param>
+    /// <param name="entity">The entity for the view model.</param>
+    /// <exception cref="ArgumentNullException"/>
+    public DeckViewModel(
+        IGenericFactory genericFactory,
+        Func<Task> saveCallback,
+        Action cancelCallback,
+        Deck entity)
     {
         this.genericFactory = genericFactory ?? throw new ArgumentNullException(nameof(genericFactory));
         this.entity = entity ?? throw new ArgumentNullException(nameof(entity));
@@ -43,8 +53,8 @@ public sealed class DeckViewModel : ViewModelBase, IDeckViewModel, IDisposable
             .Transform(card =>
             {
                 var vm = genericFactory.Create<CardViewModel>();
-                vm.FlavourText = card.Description;
-                vm.ImageData = card.Image;
+                vm.FlavourText = card.FlavourText ?? string.Empty;
+                vm.Image = card.Image ?? new();
                 vm.Id = card.Id;
                 return vm as ICardViewModel;
             })
@@ -53,14 +63,19 @@ public sealed class DeckViewModel : ViewModelBase, IDeckViewModel, IDisposable
             .Bind(out cards)
             .Subscribe();
 
+        SaveCommand = new AsyncRelayCommand(saveCallback);
+        CancelCommand = new RelayCommand(cancelCallback);
+
         disposables = Disposable.Create(connection.Dispose);
     }
 
+    /// <inheritdoc />
     public ReadOnlyObservableCollection<ICardViewModel> Cards => cards;
 
+    /// <inheritdoc />
     public string Name
     {
-        get => entity.Name;
+        get => entity.Name ?? string.Empty;
         set
         {
             if (entity.Name != value)
@@ -71,9 +86,10 @@ public sealed class DeckViewModel : ViewModelBase, IDeckViewModel, IDisposable
         }
     }
 
+    /// <inheritdoc />
     public string Description
     {
-        get => entity.Description;
+        get => entity.Description ?? string.Empty;
         set
         {
             if (entity.Description != value)
@@ -84,6 +100,7 @@ public sealed class DeckViewModel : ViewModelBase, IDeckViewModel, IDisposable
         }
     }
 
+    /// <inheritdoc />
     public string FilePath
     {
         get => entity.Image?.FilePath ?? string.Empty;
@@ -97,20 +114,28 @@ public sealed class DeckViewModel : ViewModelBase, IDeckViewModel, IDisposable
         }
     }
 
+    /// <inheritdoc />
     public byte[]? ImageThumb => entity.Image?.ThumbBytes;
 
-    bool IsModified { get; set; }
+    /// <inheritdoc />
+    public bool IsModified { get; private set; }
 
+    /// <inheritdoc />
     public IAsyncRelayCommand AddCardCommand => new AsyncRelayCommand(AddCard);
 
+    /// <inheritdoc />
     public IAsyncRelayCommand<ICardViewModel> EditCardCommand => new AsyncRelayCommand<ICardViewModel>(EditCard);
 
+    /// <inheritdoc />
     public IRelayCommand<ICardViewModel> DeleteCardCommand => new RelayCommand<ICardViewModel>(DeleteCard);
 
-    public IAsyncRelayCommand? SaveCommand { get; set; }
+    /// <inheritdoc />
+    public IAsyncRelayCommand SaveCommand { get; }
 
-    public IRelayCommand? CancelCommand { get; set; }
+    /// <inheritdoc />
+    public IRelayCommand CancelCommand { get; }
 
+    /// <inheritdoc />
     public IRelayCommand SelectFileCommand => new RelayCommand(SelectFile);
 
     private void SelectFile()
@@ -142,7 +167,18 @@ public sealed class DeckViewModel : ViewModelBase, IDeckViewModel, IDisposable
 
     private async Task AddCard() => await AddOrUpdateCard(genericFactory.Create<ICardViewModel>(), true);
 
-    private async Task EditCard(ICardViewModel card) => await AddOrUpdateCard((ICardViewModel)card.Clone(), false);
+    private async Task EditCard(ICardViewModel? card)
+    {
+        ArgumentNullException.ThrowIfNull(card);
+        await AddOrUpdateCard((ICardViewModel)card.Clone(), false);
+    }
+
+    private void DeleteCard(ICardViewModel? card)
+    {
+        ArgumentNullException.ThrowIfNull(card);
+        cardsCache.RemoveKey(card.Id);
+        OnPropertyChanged(nameof(Cards));
+    }
 
     private async Task AddOrUpdateCard(ICardViewModel card, bool add)
     {
@@ -163,11 +199,6 @@ public sealed class DeckViewModel : ViewModelBase, IDeckViewModel, IDisposable
         }
     }
 
-    private void DeleteCard(ICardViewModel card)
-    {
-        cardsCache.RemoveKey(card.Id);
-        OnPropertyChanged(nameof(Cards));
-    }
-
+    /// <inheritdoc />
     public void Dispose() => disposables.Dispose();
 }

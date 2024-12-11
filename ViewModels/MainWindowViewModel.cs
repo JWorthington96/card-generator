@@ -7,6 +7,7 @@ namespace CardGenerator.ViewModels;
 /// </summary>
 public sealed class MainWindowViewModel(INavigationRailViewModel navigationRailViewModel) : ViewModelBase, IMainWindowViewModel
 {
+    /// <inheritdoc/>
     public INavigationRailViewModel NavigationRailViewModel => navigationRailViewModel;
 
     ViewModelBase? currentDestination;

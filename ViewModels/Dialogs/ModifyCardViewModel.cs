@@ -10,9 +10,15 @@ using Microsoft.Win32;
 
 namespace CardGenerator.ViewModels.Dialogs;
 
+/// <summary>
+/// The modify card view model.
+/// </summary>
 public class ModifyCardViewModel : ViewModelBase, IModifyCardViewModel
 {
+    /// <inheritdoc />
     public ICardViewModel Card { get; set; }
+
+    /// <inheritdoc />
     public IRelayCommand SelectFileCommand => new RelayCommand(SelectFile);
 
     private void SelectFile()
@@ -33,13 +39,12 @@ public class ModifyCardViewModel : ViewModelBase, IModifyCardViewModel
 
         if (Card is not null)
         {
-            Card.ImageData = new ImageData
+            Card.Image = new ImageData
             {
                 FilePath = filePath,
                 Bytes = ImageHelpers.GetImageBytes(image),
                 ThumbBytes = ImageHelpers.GetImageBytes(thumb)
             };
-            OnPropertyChanged(nameof(Card));
         }
     }
 }
