@@ -11,7 +11,7 @@
             <TextBox Margin="0 16 0 0"
                      Style="{StaticResource MaterialDesignTextBox}"
                      materialDesign:HintAssist.Hint="Flavour text"
-                     Text="{Binding Card.FlavourText}" />
+                     Text="{Binding Result.FlavourText}" />
             <Grid Margin="0 16 0 0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
@@ -22,7 +22,7 @@
                          Style="{StaticResource MaterialDesignTextBox}"
                          IsReadOnly="True"
                          materialDesign:HintAssist.Hint="Image"
-                         Text="{Binding Card.Image.FilePath}" />
+                         Text="{Binding Result.Image.FilePath}" />
                 <Button Grid.Column="1"
                         Style="{DynamicResource MaterialDesignFlatButton}"
                         HorizontalAlignment="Right"
@@ -31,7 +31,7 @@
             </Grid>
 
             <Image Margin="0 16"
-                   Source="{Binding Card.Image.Bytes, Converter={StaticResource BytesConverter}}" />
+                   Source="{Binding Result.Image.Bytes, Converter={StaticResource BytesConverter}}" />
         </StackPanel>
     </DataTemplate>
 
@@ -51,40 +51,40 @@
             <ComboBox Style="{DynamicResource MaterialDesignFloatingHintComboBox}"
                       ItemsSource="{Binding AvailableFonts}"
                       SelectedIndex="0"
-                      SelectedItem="{Binding Font.Family, Mode=OneWayToSource}"
+                      SelectedItem="{Binding Result.Family, Mode=OneWayToSource}"
                       materialDesign:HintAssist.Hint="Font family"/>
             <StackPanel Margin="0 8"
                         Orientation="Horizontal">
                 <TextBox Style="{DynamicResource MaterialDesignFloatingHintTextBox}"
                          Width="120"
-                         Text="{Binding Font.Size}"
+                         Text="{Binding Result.Size}"
                          materialDesign:HintAssist.Hint="Font size"/>
 
                 <ToggleButton Style="{StaticResource ToggleButtonDisabled}"
                               Margin="8 0"
                               VerticalAlignment="Center"
-                              IsChecked="{Binding Font.IsBold}">
+                              IsChecked="{Binding Result.IsBold}">
                     <materialDesign:PackIcon Kind="FormatBold" />
                 </ToggleButton>
 
                 <ToggleButton Style="{StaticResource ToggleButtonDisabled}"
                               Margin="8 0"
                               VerticalAlignment="Center"
-                              IsChecked="{Binding Font.IsItalic}">
+                              IsChecked="{Binding Result.IsItalic}">
                     <materialDesign:PackIcon Kind="FormatItalic" />
                 </ToggleButton>
 
                 <ToggleButton Style="{StaticResource ToggleButtonDisabled}"
                               Margin="8 0"
                               VerticalAlignment="Center"
-                              IsChecked="{Binding Font.IsUnderline}">
+                              IsChecked="{Binding Result.IsUnderline}">
                     <materialDesign:PackIcon Kind="FormatUnderline" />
                 </ToggleButton>
 
                 <ToggleButton Style="{StaticResource ToggleButtonDisabled}"
                               Margin="8 0"
                               VerticalAlignment="Center"
-                              IsChecked="{Binding Font.IsStrikethrough}">
+                              IsChecked="{Binding Result.IsStrikethrough}">
                     <materialDesign:PackIcon Kind="FormatStrikethrough" />
                 </ToggleButton>
             </StackPanel>

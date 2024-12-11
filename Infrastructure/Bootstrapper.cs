@@ -72,8 +72,9 @@ public class Bootstrapper
         // View Models
         services.AddSingleton<IMainWindowViewModel, MainWindowViewModel>();
         services.AddSingleton<INavigationRailViewModel, NavigationRailViewModel>();
-        services.AddScoped<IDeckCollectionViewModel, DeckCollectionViewModel>();
         services.AddTransient<IDeckViewModel, DeckViewModel>();
+        services.AddTransient<IModifyDeckViewModel, ModifyDeckViewModel>();
+        services.AddScoped<IDeckCollectionViewModel, DeckCollectionViewModel>();
         services.AddTransient<ICardViewModel, CardViewModel>();
 
         services.AddTransient<Font>();

@@ -8,7 +8,7 @@ namespace CardGenerator.Interfaces.Services;
 public interface IPdfExportService
 {
     /// <summary>
-    /// Exports the card to a pdf.
+    /// Exports the deck to a pdf.
     /// </summary>
-    void Export(Deck cards, string filePath, Font font);
+    void Export(Deck deck, string filePath, Font font);
 }

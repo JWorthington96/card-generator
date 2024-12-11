@@ -54,4 +54,6 @@ public class CardViewModel : ViewModelBase, ICardViewModel
         if (Image is null) return false;
         return textEqual && Image.Equals(other.Image);
     }
+
+    public static ICardViewModel CreateFromCard(Card card) => new CardViewModel() { Id = card.Id, FlavourText = card.FlavourText, Image = card.Image };
 }

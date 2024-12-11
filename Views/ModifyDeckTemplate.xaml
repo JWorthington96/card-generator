@@ -8,7 +8,7 @@
     
     <converters:BytesToBitmapSourceConverter x:Key="BytesConverter" />
 
-    <DataTemplate DataType="{x:Type decks:DeckViewModel}">
+    <DataTemplate DataType="{x:Type decks:ModifyDeckViewModel}">
         <Grid x:Name="Base"
               Margin="16"
               VerticalAlignment="Stretch">

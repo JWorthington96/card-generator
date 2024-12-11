@@ -9,11 +9,11 @@ namespace CardGenerator.ViewModels.Dialogs;
 /// <summary>
 /// The export options view model.
 /// </summary>
-public class ExportOptionsViewModel(Font? font) : ViewModelBase, IExportOptionsViewModel
+public class ExportOptionsViewModel(Font font) : DialogViewModel<Font>(font), IExportOptionsViewModel
 {
     /// <inheritdoc />
     public IEnumerable<string> AvailableFonts { get; } = Fonts.SystemFontFamilies.SelectMany(f => f.FamilyNames.Values);
 
     /// <inheritdoc />
-    public Font Font { get; } = font ?? new Font();
+    public Font Font { get; } = font;
 }

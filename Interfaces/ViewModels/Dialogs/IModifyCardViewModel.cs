@@ -6,13 +6,8 @@ namespace CardGenerator.Interfaces.ViewModels.Dialogs;
 /// <summary>
 /// The modify card view model interface.
 /// </summary>
-public interface IModifyCardViewModel
+public interface IModifyCardViewModel : IDialogViewModel<ICardViewModel>
 {
-    /// <summary>
-    /// Gets or sets the card.
-    /// </summary>
-    ICardViewModel Card { get; set; }
-
     /// <summary>
     /// Gets the select file command.
     /// </summary>

@@ -13,11 +13,8 @@ namespace CardGenerator.ViewModels.Dialogs;
 /// <summary>
 /// The modify card view model.
 /// </summary>
-public class ModifyCardViewModel : ViewModelBase, IModifyCardViewModel
+public class ModifyCardViewModel(ICardViewModel card) : DialogViewModel<ICardViewModel>(card), IModifyCardViewModel
 {
-    /// <inheritdoc />
-    public ICardViewModel Card { get; set; }
-
     /// <inheritdoc />
     public IRelayCommand SelectFileCommand => new RelayCommand(SelectFile);
 
@@ -37,9 +34,9 @@ public class ModifyCardViewModel : ViewModelBase, IModifyCardViewModel
         using var image = Image.FromFile(filePath);
         using var thumb = image.GetThumbnailImage(128, 128, null, 0);
 
-        if (Card is not null)
+        if (Result is not null)
         {
-            Card.Image = new ImageData
+            Result.Image = new ImageData
             {
                 FilePath = filePath,
                 Bytes = ImageHelpers.GetImageBytes(image),
