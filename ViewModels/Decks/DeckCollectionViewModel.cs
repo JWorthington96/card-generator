@@ -12,18 +12,26 @@ namespace CardGenerator.ViewModels.Decks;
 
 public class DeckCollectionViewModel(IRepository<Deck> deckRepository, IGenericFactory genericFactory) : ViewModelBase, IDeckCollectionViewModel
 {
+    /// <inheritdoc />
     public IDeckViewModel? CurrentDeck { get; private set; } = null;
+
+    /// <inheritdoc />
     public ObservableCollection<Deck> Decks => new(deckRepository.GetAllAsync().Result!);
 
+    /// <inheritdoc />
     public IRelayCommand AddCommand => new RelayCommand(() => CreateDeckViewModel(new Deck()));
 
+    /// <inheritdoc />
     public IAsyncRelayCommand<int> EditCommand => new AsyncRelayCommand<int>(EditDeckAsync);
 
+    /// <inheritdoc />
     public IAsyncRelayCommand<int> DeleteCommand => new AsyncRelayCommand<int>(DeleteDeckAsync);
 
     private async Task EditDeckAsync(int id)
     {
         var deck = await deckRepository.GetByIdAsync(id);
+        if (deck is null) return;
+
         CreateDeckViewModel(deck);
     }
 
@@ -31,9 +39,7 @@ public class DeckCollectionViewModel(IRepository<Deck> deckRepository, IGenericF
 
     private void CreateDeckViewModel(Deck deck)
     {
-        CurrentDeck = genericFactory.Create<DeckViewModel>(deck);
-        CurrentDeck.SaveCommand = new AsyncRelayCommand(() => SaveDeck(deck));
-        CurrentDeck.CancelCommand = new RelayCommand(Cancel);
+        CurrentDeck = genericFactory.Create<DeckViewModel>(deck, () => SaveDeck(deck), () => Cancel());
 
         OnPropertyChanged(nameof(CurrentDeck));
     }
@@ -44,7 +50,7 @@ public class DeckCollectionViewModel(IRepository<Deck> deckRepository, IGenericF
         foreach (var card in CurrentDeck!.Cards.Where(card => card.IsModified))
         {
             var existing = deck.Cards.FirstOrDefault(c => c.Id == card.Id);
-            var newCard = new Card() { Description = card.FlavourText, Image = card.ImageData, DeckId = deck.Id, Deck = deck };
+            var newCard = new Card() { FlavourText = card.FlavourText, Image = card.Image, DeckId = deck.Id, Deck = deck };
             if (existing is not null)
             {
                 deck.Cards.Remove(existing);
@@ -55,7 +61,7 @@ public class DeckCollectionViewModel(IRepository<Deck> deckRepository, IGenericF
         // add new cards
         foreach (var card in CurrentDeck!.Cards.Where(card => !deck.Cards.Select(c => c.Id).Contains(card.Id)))
         {
-            deck.Cards.Add(new Card() { Description = card.FlavourText, Image = card.ImageData, DeckId = deck.Id, Deck = deck });
+            deck.Cards.Add(new Card() { FlavourText = card.FlavourText, Image = card.Image, DeckId = deck.Id, Deck = deck });
         }
 
         await deckRepository.AddOrUpdateAsync(deck);

@@ -3,12 +3,12 @@
 namespace CardGenerator.Interfaces.Services;
 
 /// <summary>
-///     Interface for the PDF export service.
+/// Interface for the PDF export service.
 /// </summary>
 public interface IPdfExportService
 {
     /// <summary>
-    ///     Exports the card to a pdf.
+    /// Exports the card to a pdf.
     /// </summary>
     void Export(Deck cards, string filePath, Font font);
 }

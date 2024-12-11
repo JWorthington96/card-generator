@@ -1,5 +1,4 @@
 ﻿using System.Collections.ObjectModel;
-using CardGenerator.Domain;
 using CardGenerator.Entities;
 using CardGenerator.Interfaces.Entities;
 using CardGenerator.Interfaces.Factories;
@@ -7,7 +6,12 @@ using CardGenerator.Interfaces.ViewModels;
 
 namespace CardGenerator.ViewModels;
 
-public class NavigationRailViewModel(IGenericFactory genericFactory, IRepository<Deck> deckRepo) : ViewModelBase, INavigationRailViewModel
+
+/// <summary>
+/// The navigation rail view model.
+/// </summary>
+/// <param name="genericFactory">The generic factory.</param>
+public class NavigationRailViewModel(IGenericFactory genericFactory) : ViewModelBase, INavigationRailViewModel
 {
     private IDestination<ViewModelBase>? selectedDestination;
     /// <inheritdoc/>
@@ -21,6 +25,7 @@ public class NavigationRailViewModel(IGenericFactory genericFactory, IRepository
         }
     }
 
+    /// <inheritdoc/>
     public ObservableCollection<IDestination<ViewModelBase>> Destinations { get; } =
         [
             genericFactory.Create<DeckCollectionDestination>(),

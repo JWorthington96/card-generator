@@ -1,16 +1,22 @@
-﻿using CardGenerator.Interfaces.Entities;
+using CardGenerator.Interfaces.Entities;
 using CardGenerator.Interfaces.Factories;
 using CardGenerator.ViewModels;
 using MaterialDesignThemes.Wpf;
 
-namespace CardGenerator.Entities
+namespace CardGenerator.Entities;
+
+/// <summary>
+/// The export destination.
+/// </summary>
+/// <seealso cref="IDestination{ExportViewModel}"/>
+public class ExportDestination(IGenericFactory genericFactory) : IDestination<ExportViewModel>
 {
-    public class ExportDestination(IGenericFactory genericFactory) : IDestination<ExportViewModel>
-    {
-        public DestinationInfo Info { get; } = new("Export", PackIconKind.ExportVariant, PackIconKind.ExportVariant);
+    /// <inheritdoc />
+    public DestinationInfo Info { get; } = new("Export", PackIconKind.ExportVariant, PackIconKind.ExportVariant);
 
-        public ExportViewModel ViewModel { get; } = genericFactory.Create<ExportViewModel>();
+    /// <inheritdoc />
+    public ExportViewModel ViewModel { get; } = genericFactory.Create<ExportViewModel>();
 
-        public override string ToString() => Info.Name;
-    }
+    /// <inheritdoc />
+    public override string ToString() => Info.Name;
 }

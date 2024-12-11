@@ -1,5 +1,6 @@
 ﻿using CardGenerator.Domain;
 using CardGenerator.Entities;
+using CardGenerator.Factories;
 using CardGenerator.Interfaces.Factories;
 using CardGenerator.Interfaces.Services;
 using CardGenerator.Interfaces.ViewModels;
@@ -18,12 +19,12 @@ using Microsoft.Extensions.Hosting;
 namespace CardGenerator.Infrastructure;
 
 /// <summary>
-///     Responsible for creating the application builder, and registering all of the dependencies used in dependency injection and configuration.
+/// Responsible for creating the application builder, and registering all of the dependencies used in dependency injection and configuration.
 /// </summary>
 public class Bootstrapper
 {
     /// <summary>
-    ///     Constructor for the bootstrapper.
+    /// Constructor for the bootstrapper.
     /// </summary>
     public Bootstrapper()
     {
@@ -32,10 +33,13 @@ public class Bootstrapper
             .Build();
     }
 
+    /// <summary>
+    /// Gets the host.
+    /// </summary>
     public IHost Host { get; init; }
 
     /// <summary>
-    ///     Runs the host for dependency injection and configuration.
+    /// Runs the host for dependency injection and configuration.
     /// </summary>
     public void Start() => Host.RunAsync();
 
@@ -61,7 +65,6 @@ public class Bootstrapper
 
         // Repositories
         services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
-        services.AddScoped<CardRepository>();
 
         // Factories
         services.AddScoped<IGenericFactory, GenericFactory>(serviceProvider => new GenericFactory(serviceProvider));
