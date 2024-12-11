@@ -10,10 +10,15 @@ using CardGenerator.Interfaces.ViewModels.Decks;
 
 namespace CardGenerator.ViewModels.Decks;
 
+/// <summary>
+/// The deck collection view model.
+/// </summary>
+/// <param name="deckRepository">The deck repository.</param>
+/// <param name="genericFactory">The generic factory.</param>
 public class DeckCollectionViewModel(IRepository<Deck> deckRepository, IGenericFactory genericFactory) : ViewModelBase, IDeckCollectionViewModel
 {
     /// <inheritdoc />
-    public IDeckViewModel? CurrentDeck { get; private set; } = null;
+    public IModifyDeckViewModel? CurrentDeck { get; private set; } = null;
 
     /// <inheritdoc />
     public ObservableCollection<Deck> Decks => new(deckRepository.GetAllAsync().Result!);
@@ -39,7 +44,7 @@ public class DeckCollectionViewModel(IRepository<Deck> deckRepository, IGenericF
 
     private void CreateDeckViewModel(Deck deck)
     {
-        CurrentDeck = genericFactory.Create<DeckViewModel>(deck, () => SaveDeck(deck), () => Cancel());
+        CurrentDeck = genericFactory.Create<ModifyDeckViewModel>(deck, () => Cancel(), () => SaveDeck(deck));
 
         OnPropertyChanged(nameof(CurrentDeck));
     }

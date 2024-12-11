@@ -76,7 +76,7 @@
 
                                             <Image Grid.Row="0"
                                                    MaxWidth="1000"
-                                                   Source="{Binding ImageData.Bytes, Converter={StaticResource BytesConverter}}" />
+                                                   Source="{Binding Image.Bytes, Converter={StaticResource BytesConverter}}" />
 
                                             <StackPanel Grid.Row="1"
                                                         MaxWidth="500"

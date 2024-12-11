@@ -8,14 +8,20 @@ using CardGenerator.Interfaces.Input;
 using CardGenerator.Interfaces.Services;
 using CardGenerator.Interfaces.ViewModels;
 using CardGenerator.Interfaces.ViewModels.Decks;
-using CardGenerator.Interfaces.ViewModels.Dialogs;
 using CardGenerator.ViewModels.Decks;
+using CardGenerator.ViewModels.Dialogs;
 using CardGenerator.Views;
 using MaterialDesignThemes.Wpf;
 using Microsoft.Win32;
 
 namespace CardGenerator.ViewModels;
 
+/// <summary>
+/// The export view model.
+/// </summary>
+/// <param name="genericFactory">The generic factory.</param>
+/// <param name="deckRepository">The deck repository.</param>
+/// <param name="pdfExportService">The pdf export service.</param>
 public class ExportViewModel(IGenericFactory genericFactory, IRepository<Deck> deckRepository, IPdfExportService pdfExportService) : ViewModelBase, IExportViewModel
 {
     private Font exportFont = new();
@@ -59,14 +65,14 @@ public class ExportViewModel(IGenericFactory genericFactory, IRepository<Deck> d
 
     private async Task OpenOptions()
     {
-        var viewModel = genericFactory.Create<IDialogViewModel<IExportOptionsViewModel>>(exportFont);
+        var viewModel = genericFactory.Create<ExportOptionsViewModel>(exportFont);
 
         var content = new DialogControl { DataContext = viewModel };
 
-        var result = await DialogHost.Show(content, "RootDialog") as IExportOptionsViewModel;
+        var result = await DialogHost.Show(content, "RootDialog") as Font;
         if (result is not null)
         {
-            exportFont = result.Font;
+            exportFont = result;
         }
     }
 }

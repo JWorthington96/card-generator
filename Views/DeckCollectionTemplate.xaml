@@ -8,7 +8,7 @@
         <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Button.xaml" />
         <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Card.xaml" />
         <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Popupbox.xaml" />
-        <ResourceDictionary Source="DeckTemplate.xaml" />
+        <ResourceDictionary Source="ModifyDeckTemplate.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
     <converters:BytesToBitmapSourceConverter x:Key="BytesConverter" />

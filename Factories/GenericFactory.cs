@@ -30,7 +30,7 @@ public class GenericFactory(IServiceProvider serviceProvider) : IGenericFactory
         {
             if (type.IsInterface && args.Length == 0)
             {
-                instance = serviceProvider.GetService<T>() ?? (T)ActivatorUtilities.CreateInstance(serviceProvider, type, args);
+                instance = ActivatorUtilities.GetServiceOrCreateInstance<T>(serviceProvider);
             }
             else
             {

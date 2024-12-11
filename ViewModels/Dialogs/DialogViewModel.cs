@@ -10,15 +10,25 @@ namespace CardGenerator.ViewModels.Dialogs;
 /// The dialog view model.
 /// </summary>
 /// <typeparam name="T"/>
-/// <param name="genericFactory">The generic factory.</param>
-/// <param name="input">The input.</param>
-public class DialogViewModel<T>(IGenericFactory genericFactory, T? input = null) : ViewModelBase, IDialogViewModel<T> where T : class
+public class DialogViewModel<T> : ViewModelBase, IDialogViewModel<T> where T : class
 {
+    /// <summary>
+    /// Constructor for the dialog view model where the result is created when the view model is created.
+    /// </summary>
+    /// <param name="genericFactory"></param>
+    public DialogViewModel(IGenericFactory genericFactory) => Result = genericFactory.Create<T>();
+
+    /// <summary>
+    /// Constructor for the dialog view model where the result starts from a given input.
+    /// </summary>
+    /// <param name="input"></param>
+    public DialogViewModel(T input) => Result = input;
+
     /// <inheritdoc />
     public string ConfirmLabel { get; set; } = "Confirm";
 
     /// <inheritdoc />
-    public T Result { get; } = input ?? genericFactory.Create<T>();
+    public T Result { get; }
 
     /// <inheritdoc />
     public IRelayCommand ConfirmCommand => new RelayCommand(() => DialogHost.Close("RootDialog", Result));
