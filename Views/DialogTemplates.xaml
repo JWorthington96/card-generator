@@ -22,7 +22,7 @@
                          Style="{StaticResource MaterialDesignTextBox}"
                          IsReadOnly="True"
                          materialDesign:HintAssist.Hint="Image"
-                         Text="{Binding Card.ImageData.FilePath}" />
+                         Text="{Binding Card.Image.FilePath}" />
                 <Button Grid.Column="1"
                         Style="{DynamicResource MaterialDesignFlatButton}"
                         HorizontalAlignment="Right"
@@ -31,7 +31,7 @@
             </Grid>
 
             <Image Margin="0 16"
-                   Source="{Binding Card.ImageData.Bytes, Converter={StaticResource BytesConverter}}" />
+                   Source="{Binding Card.Image.Bytes, Converter={StaticResource BytesConverter}}" />
         </StackPanel>
     </DataTemplate>
 

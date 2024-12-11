@@ -45,7 +45,6 @@ public class ModifyCardViewModel : ViewModelBase, IModifyCardViewModel
                 Bytes = ImageHelpers.GetImageBytes(image),
                 ThumbBytes = ImageHelpers.GetImageBytes(thumb)
             };
-            OnPropertyChanged(nameof(Card));
         }
     }
 }

@@ -11,11 +11,29 @@ public class CardViewModel : ViewModelBase, ICardViewModel
     /// <inheritdoc />
     public int Id { get; set; }
 
+    private string flavourText = string.Empty;
     /// <inheritdoc />
-    public string FlavourText { get; set; } = string.Empty;
+    public string FlavourText
+    {
+        get => flavourText;
+        set
+        {
+            flavourText = value;
+            OnPropertyChanged();
+        }
+    }
 
+    private ImageData image = new();
     /// <inheritdoc />
-    public ImageData Image { get; set; } = new();
+    public ImageData Image
+    {
+        get => image;
+        set
+        {
+            image = value;
+            OnPropertyChanged();
+        }
+    }
 
     /// <inheritdoc />
     public bool IsModified { get; set; }

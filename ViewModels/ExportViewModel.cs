@@ -59,8 +59,7 @@ public class ExportViewModel(IGenericFactory genericFactory, IRepository<Deck> d
 
     private async Task OpenOptions()
     {
-        var viewModel = genericFactory.Create<IDialogViewModel<IExportOptionsViewModel>>();
-        if (exportFont is not null) viewModel.Result.Font = exportFont;
+        var viewModel = genericFactory.Create<IDialogViewModel<IExportOptionsViewModel>>(exportFont);
 
         var content = new DialogControl { DataContext = viewModel };
 
