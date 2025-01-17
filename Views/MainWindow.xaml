@@ -21,7 +21,7 @@
         AllowsTransparency="True"
         Title="CardGenerator"
         Loaded="WindowLoaded"
-        Height="1000" Width="800">
+        Height="600" Width="800">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>

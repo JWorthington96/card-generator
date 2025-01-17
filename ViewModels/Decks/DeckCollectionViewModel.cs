@@ -44,7 +44,7 @@ public class DeckCollectionViewModel(IRepository<Deck> deckRepository, IGenericF
 
     private void CreateDeckViewModel(Deck deck)
     {
-        CurrentDeck = genericFactory.Create<ModifyDeckViewModel>(deck, () => Cancel(), () => SaveDeck(deck));
+        CurrentDeck = genericFactory.Create<ModifyDeckViewModel>(genericFactory, deck, () => Cancel(), () => SaveDeck(deck));
 
         OnPropertyChanged(nameof(CurrentDeck));
     }
