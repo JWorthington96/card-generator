@@ -52,6 +52,7 @@ public sealed class ModifyDeckViewModel : DeckViewModel, IModifyDeckViewModel, I
             .Transform(card =>
             {
                 var vm = genericFactory.Create<ICardViewModel>();
+                vm.Title = card.Title ?? string.Empty;
                 vm.FlavourText = card.FlavourText ?? string.Empty;
                 vm.Image = card.Image ?? new();
                 vm.Id = card.Id;

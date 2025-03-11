@@ -55,7 +55,7 @@ public class DeckCollectionViewModel(IRepository<Deck> deckRepository, IGenericF
         foreach (var card in CurrentDeck!.Cards.Where(card => card.IsModified))
         {
             var existing = deck.Cards.FirstOrDefault(c => c.Id == card.Id);
-            var newCard = new Card() { FlavourText = card.FlavourText, Image = card.Image, DeckId = deck.Id, Deck = deck };
+            var newCard = new Card() { Title = card.Title, FlavourText = card.FlavourText, Image = card.Image, DeckId = deck.Id, Deck = deck };
             if (existing is not null)
             {
                 deck.Cards.Remove(existing);
@@ -66,7 +66,7 @@ public class DeckCollectionViewModel(IRepository<Deck> deckRepository, IGenericF
         // add new cards
         foreach (var card in CurrentDeck!.Cards.Where(card => !deck.Cards.Select(c => c.Id).Contains(card.Id)))
         {
-            deck.Cards.Add(new Card() { FlavourText = card.FlavourText, Image = card.Image, DeckId = deck.Id, Deck = deck });
+            deck.Cards.Add(new Card() { Title = card.Title, FlavourText = card.FlavourText, Image = card.Image, DeckId = deck.Id, Deck = deck });
         }
 
         await deckRepository.AddOrUpdateAsync(deck);

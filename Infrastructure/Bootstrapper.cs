@@ -47,6 +47,7 @@ public class Bootstrapper
     private static void RegisterServices(IServiceCollection services)
     {
         // Services
+        services.AddScoped<IImageExportService, ImageExportService>();
         services.AddScoped<IPdfExportService, PdfExportService>();
 
         // Domain

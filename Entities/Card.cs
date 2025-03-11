@@ -7,6 +7,16 @@ namespace CardGenerator.Entities;
 /// </summary>
 public class Card : DbEntity
 {
+    /// <summary>
+    /// Gets or sets the id of the deck that owns the card.
+    /// </summary>
+    public int DeckId { get; set; }
+
+    /// <summary>
+    /// Gets or sets the title.
+    /// </summary>
+    [MaybeNull]
+    public string Title { get; set; }
 
     /// <summary>
     /// Gets or sets the flavour text.
@@ -14,19 +24,13 @@ public class Card : DbEntity
     [MaybeNull]
     public string FlavourText { get; set; }
 
-
-    /// <summary>
-    /// Gets or sets the id of the deck that owns the card.
-    /// </summary>
-    public int DeckId { get; set; }
-
+    
 
     /// <summary>
     /// Gets or sets the deck that owns the card.
     /// </summary>
     [MaybeNull]
     public virtual Deck Deck { get; set; }
-
 
     /// <summary>
     /// Gets or sets the image on the card.

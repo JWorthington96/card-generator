@@ -32,12 +32,20 @@
                         Margin="0 16 0 0"
                         Orientation="Horizontal"
                         HorizontalAlignment="Right">
-                <Button Style="{DynamicResource MaterialDesignRaisedButton}"
-                        Content="Export"
-                        Command="{Binding ExportCommand}"
+                <Button Margin="8 0"
+                        Style="{DynamicResource MaterialDesignRaisedButton}"
+                        Content="Export images"
+                        Command="{Binding ExportImagesCommand}"
                         materialDesign:ButtonAssist.CornerRadius="16"/>
-                
-                <Button Style="{DynamicResource MaterialDesignFlatButton}"
+
+                <Button Margin="8 0"
+                        Style="{DynamicResource MaterialDesignRaisedButton}"
+                        Content="Export as PDF"
+                        Command="{Binding ExportPDFCommand}"
+                        materialDesign:ButtonAssist.CornerRadius="16"/>
+
+                <Button Margin="8 0 0 0"
+                        Style="{DynamicResource MaterialDesignFlatButton}"
                         Content="Options"
                         Command="{Binding OptionsCommand}"
                         materialDesign:ButtonAssist.CornerRadius="16" />

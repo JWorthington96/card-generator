@@ -117,6 +117,11 @@
 
                                             <StackPanel Grid.Row="1"
                                                         Margin="8,24,8,0">
+                                                <TextBlock Margin="0 8"
+                                                           FontWeight="Bold"
+                                                           Text="{Binding Title}"
+                                                           TextWrapping="Wrap"
+                                                           TextAlignment="Center" />
                                                 <TextBlock FontWeight="Bold"
                                                            Text="{Binding FlavourText}"
                                                            TextWrapping="Wrap"

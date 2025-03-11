@@ -26,9 +26,9 @@ public interface IExportViewModel
     public ObservableCollection<Deck> Decks { get; }
 
     /// <summary>
-    /// Gets the export command.
+    /// Gets the export PDF command.
     /// </summary>
-    IRelayCommand ExportCommand { get; }
+    IRelayCommand ExportPDFCommand { get; }
 
     /// <summary>
     /// Gets the options command.

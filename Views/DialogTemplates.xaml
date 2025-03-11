@@ -10,8 +10,14 @@
         <StackPanel>
             <TextBox Margin="0 16 0 0"
                      Style="{StaticResource MaterialDesignTextBox}"
+                     materialDesign:HintAssist.Hint="Title"
+                     Text="{Binding Result.Title}" />
+
+            <TextBox Margin="0 16 0 0"
+                     Style="{StaticResource MaterialDesignTextBox}"
                      materialDesign:HintAssist.Hint="Flavour text"
                      Text="{Binding Result.FlavourText}" />
+
             <Grid Margin="0 16 0 0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />

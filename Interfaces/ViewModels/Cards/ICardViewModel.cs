@@ -15,6 +15,11 @@ public interface ICardViewModel : IEquatable<ICardViewModel>, IEntityViewModel, 
     int Id { get; set; }
 
     /// <summary>
+    /// Gets or sets the title.
+    /// </summary>
+    string Title { get; set; }
+
+    /// <summary>
     /// Gets or sets the flavour text.
     /// </summary>
     string FlavourText { get; set; }

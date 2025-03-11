@@ -21,8 +21,9 @@ namespace CardGenerator.ViewModels;
 /// </summary>
 /// <param name="genericFactory">The generic factory.</param>
 /// <param name="deckRepository">The deck repository.</param>
+/// <param name="imageExportService">The image export service.</param>
 /// <param name="pdfExportService">The pdf export service.</param>
-public class ExportViewModel(IGenericFactory genericFactory, IRepository<Deck> deckRepository, IPdfExportService pdfExportService) : ViewModelBase, IExportViewModel
+public class ExportViewModel(IGenericFactory genericFactory, IRepository<Deck> deckRepository, IImageExportService imageExportService, IPdfExportService pdfExportService) : ViewModelBase, IExportViewModel
 {
     private Font exportFont = new();
 
@@ -45,13 +46,27 @@ public class ExportViewModel(IGenericFactory genericFactory, IRepository<Deck> d
     /// <inheritdoc/>
     public ObservableCollection<Deck> Decks => new(deckRepository.GetAllAsync().Result!);
 
+    public IRelayCommand ExportImagesCommand => new RelayCommand(ExportImages);
+
     /// <inheritdoc/>
-    public IRelayCommand ExportCommand => new RelayCommand(Export);
+    public IRelayCommand ExportPDFCommand => new RelayCommand(ExportPDF);
 
     /// <inheritdoc/>
     public IAsyncRelayCommand OptionsCommand => new AsyncRelayCommand(OpenOptions);
 
-    private void Export()
+    private void ExportImages()
+    {
+        if (SelectedDeck is null) return;
+
+        var dialog = new OpenFolderDialog();
+
+        if (dialog.ShowDialog() is true)
+        {
+            imageExportService.Export(SelectedDeck, dialog.FolderName, exportFont);
+        }
+    }
+
+    private void ExportPDF()
     {
         if (SelectedDeck is null) return;
 
